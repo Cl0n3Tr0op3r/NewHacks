@@ -15,7 +15,6 @@ public class PlayerMovement : MonoBehaviour
     BoxCollider2D boxCollider;
 
     void Start(){
-          boxCollider=GameObject.Find("Game Boundaries").GetComponent<BoxCollider2D>();
           Application.targetFrameRate=60;
 
     }
