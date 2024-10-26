@@ -8,9 +8,9 @@ public class PlayerMovement : MonoBehaviour
 {
     
     Queue<Action> player_inputs = new Queue<Action>();
-    float speed = 3f;
+    float speed = 5f;
     int delay_rate = 1;
-    int delay_by_frames = 100;
+    int delay_by_frames = 0;
     BoxCollider2D boxCollider;
 
     void Start(){
@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
        }
        
 
-
+          // TODO: Scale up delay from 0 to frame_delay from start of match to reduce clunkiness
 
        if (player_inputs.Count!=0 && player_inputs.Peek().frame_delay==Time.frameCount){
             Vector3 input = player_inputs.Dequeue().input;
@@ -52,9 +52,11 @@ public class PlayerMovement : MonoBehaviour
                  flip.x *= -1;
                  transform.localScale = flip;
             }
-            Vector3 new_position = transform.position + input;  
-            
-            transform.position += input;
+            Vector3 new_pos = transform.position + input;  
+           
+            if ((-23<=new_pos.x && new_pos.x<=23) && (-14<=new_pos.y && new_pos.y <= 12.5)){
+                transform.position += input;
+            }
             
        }
     }
