@@ -12,22 +12,22 @@ public class Isometric2DMovement : MonoBehaviour
     void MoveCharacter()
     {
       
-        float vertical = Input.GetAxis("Vertical"); 
-        float horizontal = Input.GetAxis("Horizontal");     
+        float horizontal = Input.GetAxis("Horizontal"); 
+        float vertical = Input.GetAxis("Vertical");     
 
 
         Vector2 moveDirection = Vector2.zero;
 
        
-        if (vertical != 0 || horizontal != 0)
+        if (horizontal != 0 || vertical != 0)
         {
        
-            moveDirection = new Vector2(horizontal, vertical);
+            moveDirection = new Vector2(vertical, horizontal);
             
             
             Vector2 isometricDirection = new Vector2(
-                moveDirection.x + moveDirection.y, 
-                (moveDirection.x - moveDirection.y) * 0.5f
+                moveDirection.x - moveDirection.y, 
+                (moveDirection.x + moveDirection.y) * 0.5f
             );
 
            
