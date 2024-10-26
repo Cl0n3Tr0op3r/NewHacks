@@ -9,14 +9,12 @@ public class PlayerMovement : MonoBehaviour
     
     Queue<Action> player_inputs = new Queue<Action>();
     float speed = 3f;
-    int delay_rate = 1;
-    int delay_by_frames = 100;
+    int delay_by_frames = Action.MAX_DELAY;
     BoxCollider2D boxCollider;
 
     void Start(){
-          boxCollider=GameObject.Find("Game Boundaries").GetComponent<BoxCollider2D>();
+          // boxCollider=GameObject.Find("Game Boundaries").GetComponent<BoxCollider2D>();
           Application.targetFrameRate=60;
-
     }
     
 
@@ -40,10 +38,6 @@ public class PlayerMovement : MonoBehaviour
        if (pos!=Vector3.zero){
         player_inputs.Enqueue(new Action(Time.frameCount+delay_by_frames, pos));
        }
-       
-
-
-
        if (player_inputs.Count!=0 && player_inputs.Peek().frame_delay==Time.frameCount){
             Vector3 input = player_inputs.Dequeue().input;
             if (input.x>0==transform.localScale.x>0){
@@ -67,7 +61,15 @@ public class Action{
 
     
      public Action(int frame_delay, Vector3 input){
-          this.frame_delay=frame_delay;
+          int delta = Action.MAX_DELAY;
+          if (frame_delay > 2000)
+          {
+               delta /= (int)(frame_delay / 2000);
+          }
+
+          this.frame_delay=frame_delay - delta;
           this.input=input;
      }
+
+     public static int MAX_DELAY = 200;
 }
