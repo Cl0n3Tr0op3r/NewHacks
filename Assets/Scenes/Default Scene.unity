@@ -1266,7 +1266,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15fdf0986f8f743439ef0668cd4ea0ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  spriteRenderer: {fileID: 0}
+  spriteArray:
+  - {fileID: -1493863708, guid: fa56b0191a4d74659ba9ac39723d2862, type: 3}
+  - {fileID: 1285801600, guid: fa56b0191a4d74659ba9ac39723d2862, type: 3}
+  - {fileID: 15769483, guid: fa56b0191a4d74659ba9ac39723d2862, type: 3}
+  - {fileID: 1947723988, guid: fa56b0191a4d74659ba9ac39723d2862, type: 3}
 --- !u!212 &1584361094
 SpriteRenderer:
   m_ObjectHideFlags: 0
