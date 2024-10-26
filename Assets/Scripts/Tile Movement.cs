@@ -5,13 +5,13 @@ public class Isometric2DMovement : MonoBehaviour
 {
     [SerializeField] private int x_pos;
     [SerializeField] private int y_pos;
-    void Start(){
-        transform.position=new Vector3(0f,0f,0f);
+       
     public SpriteRenderer spriteRenderer;
     [SerializeField] public Sprite[] spriteArray;
 
     void Start()
     {
+        transform.position=new Vector3(0f,0f,0f);
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
