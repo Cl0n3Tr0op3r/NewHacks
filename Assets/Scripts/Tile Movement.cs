@@ -10,12 +10,15 @@ public class Isometric2DMovement : MonoBehaviour
     TilemapMapGenerator map;
 
     [SerializeField] public bool isTimePaused = false;
+    public static LinkedList<GameObject> players = new LinkedList<>();
+
 
     void Start()
     {
         transform.position=new Vector3(0f,0f,0f);
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         map = GameObject.Find("Grid").GetComponent<TilemapMapGenerator>();
+        players.AddLast(this);
     }
 
     void Update()

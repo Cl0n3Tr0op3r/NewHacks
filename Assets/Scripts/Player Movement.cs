@@ -14,8 +14,16 @@ public class PlayerMovement : MonoBehaviour
     int delay_by_frames = Action.MAX_DELAY;
     BoxCollider2D boxCollider;
 
+     //
+    public static LinkedList<GameObject> players = new LinkedList<>();
+     //
+
     void Start(){
           Application.targetFrameRate=60;
+          //
+          players.AddLast(this);
+
+          //
 
     }
     
