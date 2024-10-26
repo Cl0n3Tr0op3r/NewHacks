@@ -7,12 +7,16 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     
+<<<<<<< HEAD
     Queue<Action> player_inputs = new Queue<Action>();
     float speed = 5f;
   
 
     int delay_by_frames = Action.MAX_DELAY;
     BoxCollider2D boxCollider;
+=======
+    float speed = 3f;
+>>>>>>> 5a3efca8be7aacec7adddb983ec45d3b6ba5cdc6
 
     void Start(){
           boxCollider=GameObject.Find("Game Boundaries").GetComponent<BoxCollider2D>();
@@ -38,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
        if (Input.GetKey("right")){
         pos.x = speed * Time.deltaTime;
        }
+<<<<<<< HEAD
        if (pos!=Vector3.zero){
         player_inputs.Enqueue(new Action(Time.frameCount+delay_by_frames, pos));
        }
@@ -60,9 +65,16 @@ public class PlayerMovement : MonoBehaviour
             }
             
        }
+=======
+       
+       transform.position += pos;
+>>>>>>> 5a3efca8be7aacec7adddb983ec45d3b6ba5cdc6
     }
+
+
 }
 
+<<<<<<< HEAD
 
 public class Action{
      public int frame_delay;
@@ -95,3 +107,5 @@ public class Action{
      
 }
      
+=======
+>>>>>>> 5a3efca8be7aacec7adddb983ec45d3b6ba5cdc6
