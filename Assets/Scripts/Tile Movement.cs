@@ -11,35 +11,30 @@ public class Isometric2DMovement : MonoBehaviour
 
     void MoveCharacter()
     {
-        // Get input axes
-        float horizontal = Input.GetAxis("Horizontal"); // A/D or Left/Right
-        float vertical = Input.GetAxis("Vertical");     // W/S or Up/Down
+      
+        float vertical = Input.GetAxis("Vertical"); 
+        float horizontal = Input.GetAxis("Horizontal");     
 
-        // Create the movement direction
-        Vector2 moveDirection = new Vector2(horizontal, vertical);
 
-        // Initialize isometric direction
-        Vector2 isometricDirection = Vector2.zero;
+        Vector2 moveDirection = Vector2.zero;
 
-        // Determine the isometric direction based on input
-        if (moveDirection != Vector2.zero)
+       
+        if (vertical != 0 || horizontal != 0)
         {
-            // Slanted up movement
-            if (vertical > 0)
-            {
-                isometricDirection = new Vector2(moveDirection.x, moveDirection.y) * new Vector2(1, 0.5f);
-            }
-            // Slanted down movement
-            else if (vertical < 0)
-            {
-                isometricDirection = new Vector2(moveDirection.x, moveDirection.y) * new Vector2(1, -0.5f);
-            }
+       
+            moveDirection = new Vector2(horizontal, vertical);
+            
+            
+            Vector2 isometricDirection = new Vector2(
+                moveDirection.x + moveDirection.y, 
+                (moveDirection.x - moveDirection.y) * 0.5f
+            );
 
-            // Normalize the direction
+           
             isometricDirection.Normalize();
-        }
 
-        // Move the character
-        transform.position += (Vector3)isometricDirection * moveSpeed * Time.deltaTime;
+         
+            transform.position += (Vector3)isometricDirection * moveSpeed * Time.deltaTime;
+        }
     }
 }
