@@ -5,14 +5,15 @@ public class Isometric2DMovement : MonoBehaviour
 {
     [SerializeField] private int x_pos;
     [SerializeField] private int y_pos;
-       
     public SpriteRenderer spriteRenderer;
     [SerializeField] public Sprite[] spriteArray;
+    TilemapMapGenerator map;
 
     void Start()
     {
         transform.position=new Vector3(0f,0f,0f);
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        map = GameObject.Find("Grid").GetComponent<TilemapMapGenerator>();
     }
 
     void Update()
@@ -20,20 +21,30 @@ public class Isometric2DMovement : MonoBehaviour
 
 
         Vector3 pos = transform.position;
+        
         if (Input.GetKeyDown("w")){
-            y_pos+=1;
+            if((map.end_y)>=y_pos){
+                y_pos+=1;
+            }
             spriteRenderer.sprite = spriteArray[1];
         }
         else if (Input.GetKeyDown("s")){
-             y_pos-=1;
+            if(map.start_y+2<y_pos){
+                y_pos-=1;
+            }
              spriteRenderer.sprite = spriteArray[3];
         }
         else if (Input.GetKeyDown("a")){
-             x_pos-=1;
+            if(map.start_x<=x_pos){
+                x_pos-=1;
+            }
              spriteRenderer.sprite = spriteArray[2];
         }
         else if (Input.GetKeyDown("d")){
-            x_pos+=1;
+            if((-2+map.end_x)>x_pos){
+                x_pos+=1;
+            }
+            
             spriteRenderer.sprite = spriteArray[0];
             
         }
