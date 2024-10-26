@@ -12,7 +12,7 @@ public class Isometric2DMovement : MonoBehaviour
     void MoveCharacter()
     {
       
-        float horizontal = Input.GetAxis("Horizontal"); 
+        float horizontal = Input.GetAxis("Horizontal") * -1; 
         float vertical = Input.GetAxis("Vertical");     
 
 
