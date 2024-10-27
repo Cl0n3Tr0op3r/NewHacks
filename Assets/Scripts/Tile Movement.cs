@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections.Generic;
 
 public class Isometric2DMovement : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class Isometric2DMovement : MonoBehaviour
     TilemapMapGenerator map;
 
     [SerializeField] public bool isTimePaused = false;
-    public static LinkedList<GameObject> players = new LinkedList<>();
+    public static LinkedList<GameObject> players = new LinkedList<GameObject>();
 
 
     void Start()
@@ -18,7 +19,7 @@ public class Isometric2DMovement : MonoBehaviour
         transform.position=new Vector3(0f,0f,0f);
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         map = GameObject.Find("Grid").GetComponent<TilemapMapGenerator>();
-        players.AddLast(this);
+        // players.AddLast(this);
     }
 
     void Update()
