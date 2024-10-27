@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using Cinemachine;
+using Photon.Pun;
 
 public class Isometric2DMovement : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class Isometric2DMovement : MonoBehaviour
     public bool dead;
     public static bool gameOver;
 
+    PhotonView view;
 
     [SerializeField] public bool isTimePaused = false;
     public Queue<int> player_inputs = new Queue<int>();
@@ -42,98 +44,115 @@ public class Isometric2DMovement : MonoBehaviour
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         map = GameObject.Find("Grid").GetComponent<TilemapMapGenerator>();
         list_of_players.AddLast(this);
+        view = GetComponent<PhotonView>();
 
     }
 
     void Update()
-    {  
-        if (Input.GetKeyDown(KeyCode.Return)){
-            isTimePaused=!isTimePaused;
-            ghost.GetComponent<GhostBehaviour>().updateRemainTurns(6);
-            foreach (var fire in FireGhost.all_fires){
-                    if (fire!=null){
+    {
+        if (view.IsMine)
+        {
+
+        
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                isTimePaused = !isTimePaused;
+                ghost.GetComponent<GhostBehaviour>().updateRemainTurns(6);
+                foreach (var fire in FireGhost.all_fires)
+                {
+                    if (fire != null)
+                    {
                         Destroy(fire.gameObject, 0f);
-                        
+
                     }
                 }
-                FireGhost.counter=0;
-           
-            
-           
-            
-        }
-        if (!isTimePaused)
-        {
-            vcam.Follow = GameObject.Find("player_characters").transform;
-            ghost.GetComponent<GhostBehaviour>().x_pos = x_pos;
-            ghost.GetComponent<GhostBehaviour>().y_pos = y_pos;
-            ghost.transform.position = this.transform.position;
-            if (player_inputs.Count != 0) {
-                
-                if(player_inputs.Count != 0 && Time.frameCount % frameDelay == 0){
-                    
+                FireGhost.counter = 0;
+
+
+
+
+            }
+            if (!isTimePaused)
+            {
+                vcam.Follow = GameObject.Find("player_characters").transform;
+                ghost.GetComponent<GhostBehaviour>().x_pos = x_pos;
+                ghost.GetComponent<GhostBehaviour>().y_pos = y_pos;
+                ghost.transform.position = this.transform.position;
+                if (player_inputs.Count != 0)
+                {
+
+                    if (player_inputs.Count != 0 && Time.frameCount % frameDelay == 0)
+                    {
+
+                        ghost.SetActive(false);
+                        move(player_inputs.Dequeue());
+
+                    }
+                }
+                if (real_fires.Count != 0 && (Time.frameCount + (frameDelay + 10)) % frameDelay == 0)
+                {
+                    Destroy(real_fires.Dequeue().gameObject, 0f);
+                }
+                /*
+                else
+                {
                     ghost.SetActive(false);
-                    move(player_inputs.Dequeue());
-                    
-                }                
+                    if (Input.GetKeyDown("w")) move(1);
+                    if (Input.GetKeyDown("a")) move(2);
+                    if (Input.GetKeyDown("s")) move(3);
+                    if (Input.GetKeyDown("d")) move(4); // maybe comment out later
+                }
+                */
+
             }
-            if(real_fires.Count!=0 && (Time.frameCount + (frameDelay+10)) % frameDelay == 0){
-                Destroy(real_fires.Dequeue().gameObject, 0f);
-            }
-            /*
             else
             {
-                ghost.SetActive(false);
-                if (Input.GetKeyDown("w")) move(1);
-                if (Input.GetKeyDown("a")) move(2);
-                if (Input.GetKeyDown("s")) move(3);
-                if (Input.GetKeyDown("d")) move(4); // maybe comment out later
-            }
-            */
+                if (real_fires.Count != 0 && Time.frameCount % frameDelay == 0)
+                {
+                    Destroy(real_fires.Dequeue().gameObject, 0f);
+                }
 
-        }
-        else
-        {
-            if(real_fires.Count!=0 && Time.frameCount % frameDelay == 0){
-                Destroy(real_fires.Dequeue().gameObject, 0f);
-            }
-            
-            ghost.SetActive(true);
-            vcam.Follow = GameObject.Find("player_characters_ghost").transform;
-            
-            SpriteRenderer pauseMoveIndicatorSprite = ghost.GetComponent<SpriteRenderer>();
+                ghost.SetActive(true);
+                vcam.Follow = GameObject.Find("player_characters_ghost").transform;
 
-            if (Input.GetKeyDown("w")) 
-            {
-                player_inputs.Enqueue(1);
-            }
-            else if (Input.GetKeyDown("a")) 
-            {
-                player_inputs.Enqueue(2);
-            }
-            else if (Input.GetKeyDown("s")) 
-            {
-                
-                player_inputs.Enqueue(3);
-            }
-            else if (Input.GetKeyDown("d")) 
-            {
-                
-                player_inputs.Enqueue(4);
-            }
-            else if (Input.GetKeyDown("up")){
-                
-                player_inputs.Enqueue(11);
-                
-            }
-            else if (Input.GetKeyDown("left")){
-               player_inputs.Enqueue(12);
-            }
-            else if (Input.GetKeyDown("down")){
-               player_inputs.Enqueue(13);
-            }
-            else if (Input.GetKeyDown("down")){
-                player_inputs.Enqueue(14);
+                SpriteRenderer pauseMoveIndicatorSprite = ghost.GetComponent<SpriteRenderer>();
+
+                if (Input.GetKeyDown("w"))
+                {
+                    player_inputs.Enqueue(1);
+                }
+                else if (Input.GetKeyDown("a"))
+                {
+                    player_inputs.Enqueue(2);
+                }
+                else if (Input.GetKeyDown("s"))
+                {
+
+                    player_inputs.Enqueue(3);
+                }
+                else if (Input.GetKeyDown("d"))
+                {
+
+                    player_inputs.Enqueue(4);
+                }
+                else if (Input.GetKeyDown("up"))
+                {
+
+                    player_inputs.Enqueue(11);
+
+                }
+                else if (Input.GetKeyDown("left"))
+                {
+                    player_inputs.Enqueue(12);
+                }
+                else if (Input.GetKeyDown("down"))
+                {
+                    player_inputs.Enqueue(13);
+                }
+                else if (Input.GetKeyDown("down"))
+                {
+                    player_inputs.Enqueue(14);
+                }
             }
         }
     }

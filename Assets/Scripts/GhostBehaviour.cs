@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Cinemachine;
 using TMPro;
+using Photon.Pun;
 
 
 public class GhostBehaviour : MonoBehaviour
@@ -23,7 +24,7 @@ public class GhostBehaviour : MonoBehaviour
     [SerializeField] public GameObject fire_ghost;
 
     [SerializeField] public TMP_Text turnsDisplay;
-
+    PhotonView view;
 
     public static LinkedList<GhostBehaviour> list_of_players = new LinkedList<GhostBehaviour>();
 
@@ -44,83 +45,92 @@ public class GhostBehaviour : MonoBehaviour
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         map = GameObject.Find("Grid").GetComponent<TilemapMapGenerator>();
         list_of_players.AddLast(this);
-
+        view = GetComponent <PhotonView>();
     }
 
     void Update()
-    {  
-       
-        bool isTimePaused = GameObject.Find("player_characters").GetComponent<Isometric2DMovement>().isTimePaused;
-        if (isTimePaused)
-        {   
+    {
+        if (view.IsMine)
+        {
+            bool isTimePaused = GameObject.Find("player_characters").GetComponent<Isometric2DMovement>().isTimePaused;
+            if (isTimePaused)
+            {
 
-            if (remTurns >= 0){
-                if (Input.GetKeyDown("w")) 
+                if (remTurns >= 0)
                 {
-                    move(1);
-                   
-                }
-                else if (Input.GetKeyDown("a")) 
-                {
-                    move(2);
-                   
-                
-                }
-                else if (Input.GetKeyDown("s")) 
-                {
-                    move(3);
-                    
-                }
-                else if (Input.GetKeyDown("d")) 
-                {
-                    move(4);
-                   
-                
-                }
-                else if (Input.GetKeyDown("up")){
-                    move(11);
-                    
-                }
-                else if (Input.GetKeyDown("left")){
-                    move(12);
-                    
-                }
-                else if (Input.GetKeyDown("down")){
-                    move(13);
-                    
-                }
-                else if (Input.GetKeyDown("right")){
-                    move(14);
-                   
-                }
-            }
-            
-            if (Input.GetKeyDown(KeyCode.Escape)){
-                updateRemainTurns(6);
-                Isometric2DMovement parent = father_ghost.GetComponent<Isometric2DMovement>();
-                parent.player_inputs.Clear();
-                x_pos = parent.x_pos;
-                y_pos = parent.y_pos;
-                transform.position = parent.transform.position;
-                foreach (var fire in FireGhost.all_fires){
-                    if (fire!=null){
-                        Destroy(fire.gameObject, 0f);
-                        
+                    if (Input.GetKeyDown("w"))
+                    {
+                        move(1);
+
+                    }
+                    else if (Input.GetKeyDown("a"))
+                    {
+                        move(2);
+
+
+                    }
+                    else if (Input.GetKeyDown("s"))
+                    {
+                        move(3);
+
+                    }
+                    else if (Input.GetKeyDown("d"))
+                    {
+                        move(4);
+
+
+                    }
+                    else if (Input.GetKeyDown("up"))
+                    {
+                        move(11);
+
+                    }
+                    else if (Input.GetKeyDown("left"))
+                    {
+                        move(12);
+
+                    }
+                    else if (Input.GetKeyDown("down"))
+                    {
+                        move(13);
+
+                    }
+                    else if (Input.GetKeyDown("right"))
+                    {
+                        move(14);
+
                     }
                 }
-                FireGhost.counter=0;
 
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    updateRemainTurns(6);
+                    Isometric2DMovement parent = father_ghost.GetComponent<Isometric2DMovement>();
+                    parent.player_inputs.Clear();
+                    x_pos = parent.x_pos;
+                    y_pos = parent.y_pos;
+                    transform.position = parent.transform.position;
+                    foreach (var fire in FireGhost.all_fires)
+                    {
+                        if (fire != null)
+                        {
+                            Destroy(fire.gameObject, 0f);
+
+                        }
+                    }
+                    FireGhost.counter = 0;
+
+                }
             }
+            /*
+            else{
+                Isometric2DMovement father_pos=father_ghost.GetComponent<Isometric2DMovement>();
+                x_pos = father_pos.x_pos;
+                y_pos = father_pos.y_pos;
+                transform.position = father_ghost.transform.position;
+            }
+            */
         }
-        /*
-        else{
-            Isometric2DMovement father_pos=father_ghost.GetComponent<Isometric2DMovement>();
-            x_pos = father_pos.x_pos;
-            y_pos = father_pos.y_pos;
-            transform.position = father_ghost.transform.position;
-        }
-        */
-       
     }
 
     void move(int dir)
