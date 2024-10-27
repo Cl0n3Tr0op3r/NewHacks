@@ -35,12 +35,19 @@ public class Isometric2DMovement : MonoBehaviour
         {
             vcam.Follow = GameObject.Find("player_characters").transform;
             if (player_inputs.Count != 0) {
-                while (player_inputs.Count!=0){
+                foreach (var item in player_inputs)
+                {
+                    print(item);
+                }
+                print(10000000000);
+                while (player_inputs.Count != 0){
                     move(player_inputs.Dequeue());
                 }
+                pausedMoveIndicator.transform.position = this.transform.position;
             }
             else
             {
+                pausedMoveIndicator.SetActive(false);
                 if (Input.GetKeyDown("w")) move(1);
                 if (Input.GetKeyDown("a")) move(2);
                 if (Input.GetKeyDown("s")) move(3);
@@ -49,27 +56,29 @@ public class Isometric2DMovement : MonoBehaviour
         }
         else
         {
+            pausedMoveIndicator.SetActive(true);
             vcam.Follow = GameObject.Find("player_characters_ghost").transform;
+            
+            SpriteRenderer pauseMoveIndicatorSprite = pausedMoveIndicator.GetComponent<SpriteRenderer>();
+
             if (Input.GetKeyDown("w")) 
             {
-                move(1, pausedMoveIndicator.transform, pausedMoveIndicator.GetComponent<SpriteRenderer>());
-                // pausedMoveIndicator.transform.position = new Vector3(1,1,0);
-                print(pausedMoveIndicator.transform.position);
+                move(1, pausedMoveIndicator.transform, pauseMoveIndicatorSprite);
                 player_inputs.Enqueue(1);
             }
-            if (Input.GetKeyDown("a")) 
+            else if (Input.GetKeyDown("a")) 
             {
-                move(2, pausedMoveIndicator.transform, pausedMoveIndicator.GetComponent<SpriteRenderer>());
+                move(2, pausedMoveIndicator.transform, pauseMoveIndicatorSprite);
                 player_inputs.Enqueue(2);
             }
-            if (Input.GetKeyDown("s")) 
+            else if (Input.GetKeyDown("s")) 
             {
-                move(3, pausedMoveIndicator.transform, pausedMoveIndicator.GetComponent<SpriteRenderer>());
+                move(3, pausedMoveIndicator.transform, pauseMoveIndicatorSprite);
                 player_inputs.Enqueue(3);
             }
-            if (Input.GetKeyDown("d")) 
+            else if (Input.GetKeyDown("d")) 
             {
-                move(4, pausedMoveIndicator.transform, pausedMoveIndicator.GetComponent<SpriteRenderer>());
+                move(4, pausedMoveIndicator.transform, pauseMoveIndicatorSprite);
                 player_inputs.Enqueue(4);
             }
         }
