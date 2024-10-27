@@ -18,6 +18,7 @@ public class GhostBehaviour : MonoBehaviour
     public int remTurns;
     [SerializeField] public GameObject father_ghost;
     public Queue<int> player_inputs = new Queue<int>();
+    [SerializeField] public GameObject fire_ghost;
 
 
     public static LinkedList<GhostBehaviour> list_of_players = new LinkedList<GhostBehaviour>();
@@ -69,6 +70,22 @@ public class GhostBehaviour : MonoBehaviour
                     remTurns--;
                 
                 }
+                else if (Input.GetKeyDown("up")){
+                    move(11);
+                    remTurns--;
+                }
+                else if (Input.GetKeyDown("left")){
+                    move(12);
+                    remTurns--;
+                }
+                else if (Input.GetKeyDown("down")){
+                    move(13);
+                    remTurns--;
+                }
+                else if (Input.GetKeyDown("right")){
+                    move(14);
+                    remTurns--;
+                }
             }
             
             if (Input.GetKeyDown(KeyCode.Escape)){
@@ -78,6 +95,12 @@ public class GhostBehaviour : MonoBehaviour
                 x_pos = parent.x_pos;
                 y_pos = parent.y_pos;
                 transform.position = parent.transform.position;
+                foreach (var fire in FireGhost.all_fires){
+                    if (fire!=null){
+                        Destroy(fire.gameObject);
+                    }
+                }
+                FireGhost.counter=0;
 
             }
         }
@@ -123,16 +146,40 @@ public class GhostBehaviour : MonoBehaviour
         }
 
         else if (dir == 11){
-            Debug.Log("");
+            GameObject fire = GameObject.Instantiate(fire_ghost) as GameObject;
+            fire.SetActive(true);
+            FireGhost.all_fires[FireGhost.counter]=fire;
+            FireGhost.counter++;
+            FireGhost fireBehaviour = fire.GetComponent<FireGhost>(); 
+            fireBehaviour.x_pos = x_pos;
+            fireBehaviour.y_pos = y_pos+1;
         }
         else if (dir == 12){
-            Debug.Log("");
+            GameObject fire = GameObject.Instantiate(fire_ghost) as GameObject;
+            FireGhost fireBehaviour = fire.GetComponent<FireGhost>(); 
+            fire.SetActive(true);
+            FireGhost.all_fires[FireGhost.counter]=fire;
+            FireGhost.counter++;
+            fireBehaviour.x_pos = x_pos - 1;
+            fireBehaviour.y_pos = y_pos;
         }
         else if (dir == 13){
-           Debug.Log("");
+            GameObject fire = GameObject.Instantiate(fire_ghost) as GameObject;
+            FireGhost fireBehaviour = fire.GetComponent<FireGhost>(); 
+            fire.SetActive(true);
+            FireGhost.all_fires[FireGhost.counter]=fire;
+            FireGhost.counter++;
+            fireBehaviour.x_pos = x_pos;
+            fireBehaviour.y_pos = y_pos -1;
         }
         else if (dir == 14){
-            Debug.Log("");
+            GameObject fire = GameObject.Instantiate(fire_ghost) as GameObject;
+            fire.SetActive(true);
+            FireGhost.all_fires[FireGhost.counter]=fire;
+            FireGhost.counter++;
+            FireGhost fireBehaviour = fire.GetComponent<FireGhost>(); 
+            fireBehaviour.x_pos = x_pos +1;
+            fireBehaviour.y_pos = y_pos;
         }
         
         target.position = new Vector3( (float)(y_pos * 0.5 + x_pos * 0.5), (float)(y_pos * 0.25 - x_pos *0.25),0f);
