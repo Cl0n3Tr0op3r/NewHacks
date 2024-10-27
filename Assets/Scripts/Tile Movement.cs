@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using Cinemachine;
+using Photon.Pun;
 
 public class Isometric2DMovement : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class Isometric2DMovement : MonoBehaviour
     public bool dead;
     public static bool gameOver;
 
+    PhotonView view;
 
     [SerializeField] public bool isTimePaused = false;
     public Queue<int> player_inputs = new Queue<int>();
@@ -42,6 +44,7 @@ public class Isometric2DMovement : MonoBehaviour
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         map = GameObject.Find("Grid").GetComponent<TilemapMapGenerator>();
         list_of_players.AddLast(this);
+        view = GetComponent<PhotonView>();
 
     }
 
@@ -83,16 +86,14 @@ public class Isometric2DMovement : MonoBehaviour
             if(real_fires.Count != 0){
                 Destroy(real_fires.Dequeue().gameObject, 4f);
             }
-            /*
+            
             else
             {
-                ghost.SetActive(false);
-                if (Input.GetKeyDown("w")) move(1);
-                if (Input.GetKeyDown("a")) move(2);
-                if (Input.GetKeyDown("s")) move(3);
-                if (Input.GetKeyDown("d")) move(4); // maybe comment out later
+                if (real_fires.Count != 0 && Time.frameCount % frameDelay == 0)
+                {
+                    Destroy(real_fires.Dequeue().gameObject, 0f);
+                }
             }
-            */
 
         }
         else
