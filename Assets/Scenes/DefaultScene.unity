@@ -753,10 +753,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1Prefab: {fileID: 5482041090528855058, guid: d6b4877941ec1d045b2649a0ab66154c, type: 3}
   player2Prefab: {fileID: 5046630032844970186, guid: 9fdbede00473a574a91da6c1e7edb381, type: 3}
-  x1: 100
-  y1: 0
-  x2: 500
-  y2: 250
+  x1: 1000
+  y1: 1000
+  x2: 25
+  y2: 25
 --- !u!4 &2021387890
 Transform:
   m_ObjectHideFlags: 0
