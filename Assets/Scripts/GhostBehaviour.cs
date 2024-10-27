@@ -16,7 +16,7 @@ public class GhostBehaviour : MonoBehaviour
     TilemapMapGenerator map;
     public bool dead;
     public static bool gameOver;
-    public bool yourTurn;
+
     public (int, int) startPos;
     public int remTurns;
     [SerializeField] public GameObject father_ghost;
@@ -31,7 +31,7 @@ public class GhostBehaviour : MonoBehaviour
 
     void Start()
     {
-        yourTurn=true;
+        
         
         //
 
@@ -47,6 +47,8 @@ public class GhostBehaviour : MonoBehaviour
         map = GameObject.Find("Grid").GetComponent<TilemapMapGenerator>();
         list_of_players.AddLast(this);
         view = GetComponent <PhotonView>();
+
+        this.gameObject.SetActive(false);
     }
 
     void Update()
