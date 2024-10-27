@@ -976,8 +976,9 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!4 &1584361095
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4991557222660490684, guid: d6b4877941ec1d045b2649a0ab66154c, type: 3}
-  m_PrefabInstance: {fileID: 4937218557590429145}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1584361092}
   serializedVersion: 2
@@ -987,7 +988,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1740192385}
-  - {fileID: 2076243809}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1740192384
@@ -1507,7 +1507,8 @@ PrefabInstance:
       propertyPath: turnsDisplay
       value: 
       objectReference: {fileID: 1371562045}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6201687932705793546, guid: d6b4877941ec1d045b2649a0ab66154c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1590,3 +1591,4 @@ SceneRoots:
   - {fileID: 7473003664126064436}
   - {fileID: 3895761609778271588}
   - {fileID: 2021387890}
+  - {fileID: 1584361095}
