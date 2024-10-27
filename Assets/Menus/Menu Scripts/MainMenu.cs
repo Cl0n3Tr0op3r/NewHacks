@@ -7,6 +7,10 @@ public class MainMenu : MonoBehaviour
 {
     public void PlayGame()
     {
-        SceneManager.LoadSceneAsync("MainMenu2");
+        SceneManager.LoadSceneAsync("ServerMenu");
+    }
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
