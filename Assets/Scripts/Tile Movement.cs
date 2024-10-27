@@ -1,10 +1,11 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using Cinemachine;
 
 public class Isometric2DMovement : MonoBehaviour
 {
-    
+    [SerializeField] private CinemachineVirtualCamera vcam; 
     [SerializeField] private int x_pos;
     [SerializeField] private int y_pos;
     public SpriteRenderer spriteRenderer;
@@ -14,7 +15,7 @@ public class Isometric2DMovement : MonoBehaviour
     [SerializeField] public bool isTimePaused = false;
     public Queue<int> player_inputs = new Queue<int>();
 
-    public static LinkedList<GameObject> players = new LinkedList<GameObject>();
+    public static LinkedList<Isometric2DMovement> list_of_players = new LinkedList<Isometric2DMovement>();
 
 
     void Start()
@@ -22,16 +23,16 @@ public class Isometric2DMovement : MonoBehaviour
         transform.position=new Vector3(0f,0f,0f);
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         map = GameObject.Find("Grid").GetComponent<TilemapMapGenerator>();
-        // players.AddLast(this);
+        list_of_players.AddLast(this);
     }
 
     void Update()
     {  
         if (!isTimePaused)
         {
+            vcam.Follow = GameObject.Find("player_character").transform;
             if (player_inputs.Count != 0) {
-                for (int i = 0; i < player_inputs.Count; i++)
-                {
+                while (player_inputs.Count!=0){
                     move(player_inputs.Dequeue());
                 }
             }
@@ -45,7 +46,8 @@ public class Isometric2DMovement : MonoBehaviour
         }
         else
         {
-                Debug.Log(player_inputs.Count);
+
+            vcam.Follow = GameObject.Find("player_character_ghost").transform;
             if (Input.GetKeyDown("w")) player_inputs.Enqueue(1);
             if (Input.GetKeyDown("a")) player_inputs.Enqueue(2);
             if (Input.GetKeyDown("s")) player_inputs.Enqueue(3);
