@@ -16,11 +16,10 @@ public class Isometric2DMovement : MonoBehaviour
     public bool yourTurn;
     public (int, int) startPos;
     public int remTurns;
-    [SerializeField] private GameObject ghost;
 
     [SerializeField] public bool isTimePaused = false;
     public Queue<int> player_inputs = new Queue<int>();
-    [SerializeField] public GameObject pausedMoveIndicator;
+    [SerializeField] public GameObject ghost;
 
 
     public static LinkedList<Isometric2DMovement> list_of_players = new LinkedList<Isometric2DMovement>();
@@ -51,59 +50,55 @@ public class Isometric2DMovement : MonoBehaviour
         {
             vcam.Follow = GameObject.Find("player_characters").transform;
             if (player_inputs.Count != 0) {
-                foreach (var item in player_inputs)
-                {
-                    print(item);
+                
+                if(player_inputs.Count != 0){
+                    int asd=player_inputs.Dequeue();
+                    
+                    //Debug.Log(asd);
+                    //move(asd);
+                    //Debug.Log(player_inputs.Count);
                 }
-                print(10000000000);
-                while (player_inputs.Count != 0){
-                    move(player_inputs.Dequeue());
-                }
-                pausedMoveIndicator.transform.position = this.transform.position;
+                
+                
+
+                ghost.transform.position = this.transform.position;
             }
             else
             {
-                pausedMoveIndicator.SetActive(false);
+                ghost.SetActive(false);
                 if (Input.GetKeyDown("w")) move(1);
                 if (Input.GetKeyDown("a")) move(2);
                 if (Input.GetKeyDown("s")) move(3);
                 if (Input.GetKeyDown("d")) move(4);
             }
-            else
-            {
 
-                if (Input.GetKeyDown(KeyCode.Escape)){
-                    remTurns=6;
-                    (x_pos, y_pos) = startPos;
-                } 
-
-            }
         }
         else
         {
-            pausedMoveIndicator.SetActive(true);
+            Debug.Log(player_inputs.Count);
+            ghost.SetActive(true);
             vcam.Follow = GameObject.Find("player_characters_ghost").transform;
             
-            SpriteRenderer pauseMoveIndicatorSprite = pausedMoveIndicator.GetComponent<SpriteRenderer>();
+            SpriteRenderer pauseMoveIndicatorSprite = ghost.GetComponent<SpriteRenderer>();
 
             if (Input.GetKeyDown("w")) 
             {
-                move(1, pausedMoveIndicator.transform, pauseMoveIndicatorSprite);
+                move(1, ghost.transform, pauseMoveIndicatorSprite);
                 player_inputs.Enqueue(1);
             }
             else if (Input.GetKeyDown("a")) 
             {
-                move(2, pausedMoveIndicator.transform, pauseMoveIndicatorSprite);
+                move(2, ghost.transform, pauseMoveIndicatorSprite);
                 player_inputs.Enqueue(2);
             }
             else if (Input.GetKeyDown("s")) 
             {
-                move(3, pausedMoveIndicator.transform, pauseMoveIndicatorSprite);
+                move(3, ghost.transform, pauseMoveIndicatorSprite);
                 player_inputs.Enqueue(3);
             }
             else if (Input.GetKeyDown("d")) 
             {
-                move(4, pausedMoveIndicator.transform, pauseMoveIndicatorSprite);
+                move(4, ghost.transform, pauseMoveIndicatorSprite);
                 player_inputs.Enqueue(4);
             }
         }
@@ -117,8 +112,9 @@ public class Isometric2DMovement : MonoBehaviour
     {
         // dir    1 2 3 4
         // key    w a s d
+        // dir    10 11 12 13
+        // attack 
         
-        Vector3 pos = target.position;
         
         if (dir == 1){
             if((map.end_y)>=y_pos){
@@ -145,6 +141,43 @@ public class Isometric2DMovement : MonoBehaviour
             
             spriteRenderer.sprite = spriteArray[0];
             
+        }
+
+        else if (dir == 11){
+            foreach (Isometric2DMovement player in list_of_players){
+                if (player.x_pos == x_pos && player.y_pos == y_pos + 1){
+                    player.dead=true;
+                    Isometric2DMovement.gameOver = true;
+                    // death or attack animation
+                }
+            }
+        }
+        else if (dir == 12){
+            foreach (Isometric2DMovement player in list_of_players){
+                if (player.x_pos == x_pos -1 && player.y_pos == y_pos){
+                    player.dead=true;
+                    Isometric2DMovement.gameOver = true;
+                    // death or attack animation
+                }
+            }
+        }
+        else if (dir == 13){
+            foreach (Isometric2DMovement player in list_of_players){
+                if (player.x_pos == x_pos  && player.y_pos == y_pos - 1){
+                    player.dead=true;
+                    Isometric2DMovement.gameOver = true;
+                    // death or attack animation
+                }
+            }
+        }
+        else if (dir == 14){
+            foreach (Isometric2DMovement player in list_of_players){
+                if (player.x_pos == x_pos + 1 && player.y_pos == y_pos){
+                    player.dead=true;
+                    Isometric2DMovement.gameOver = true;
+                    // death or attack animation
+                }
+            }
         }
         
         target.position = new Vector3( (float)(y_pos * 0.5 + x_pos * 0.5), (float)(y_pos * 0.25 - x_pos *0.25),0f);
