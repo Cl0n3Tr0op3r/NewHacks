@@ -38,6 +38,7 @@ public class SpawnPlayers : MonoBehaviour
             firePrefab = player1_fire_Prefab;
             fireghostPrefab = player1_fireghost_Prefab;
             ghostPrefab = player1_ghost_Prefab;
+            
         }
         else
         {
@@ -46,12 +47,16 @@ public class SpawnPlayers : MonoBehaviour
             firePrefab = player2_fire_Prefab;
             fireghostPrefab = player2_fireghost_Prefab;
             ghostPrefab = player2_ghost_Prefab;
+           
         }
 
         // Instantiate the player
         GameObject player = PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(0f, 0f), Quaternion.identity);
         player.GetComponent<Isometric2DMovement>().x_pos = x2;
         player.GetComponent<Isometric2DMovement>().y_pos = y2;
+       
+        
+        
 
         // Instantiate the ghost and set it inactive
         GameObject ghost = PhotonNetwork.Instantiate(ghostPrefab.name, new Vector2(0f, 0f), Quaternion.identity);
