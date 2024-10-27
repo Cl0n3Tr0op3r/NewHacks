@@ -50,7 +50,11 @@ public class GhostBehaviour : MonoBehaviour
 
     void Update()
     {
-        if (view.IsMine)
+        if (view == null){
+            Debug.Log("trying");
+            view = GetComponent<PhotonView>();
+        }
+        else if (view.IsMine)
         {
             bool isTimePaused = GameObject.Find("player_characters").GetComponent<Isometric2DMovement>().isTimePaused;
             if (isTimePaused)

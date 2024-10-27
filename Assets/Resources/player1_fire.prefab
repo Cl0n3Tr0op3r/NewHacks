@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 3854239075264997369}
   - component: {fileID: 5741395025310778183}
   - component: {fileID: 7739518124888923713}
+  - component: {fileID: 3387392637662748749}
   m_Layer: 0
-  m_Name: fire
+  m_Name: player1_fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -99,3 +100,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   x_pos: 0
   y_pos: 0
+--- !u!114 &3387392637662748749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3502087760968136295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

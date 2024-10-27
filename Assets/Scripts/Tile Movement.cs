@@ -31,6 +31,7 @@ public class Isometric2DMovement : MonoBehaviour
     void Start()
     {
 
+        Debug.developerConsoleVisible=true;
         
         //
 
@@ -49,100 +50,102 @@ public class Isometric2DMovement : MonoBehaviour
     }
 
     void Update()
-    {  
-        if (Input.GetKeyDown(KeyCode.Return)){
-            isTimePaused=!isTimePaused;
-            ghost.GetComponent<GhostBehaviour>().updateRemainTurns(6);
-            foreach (var fire in FireGhost.all_fires){
-                // print(fire);
-                if (fire!=null){
-                    Destroy(fire.gameObject, 0f);
-                    
+    {  if (view.IsMine){
+            Debug.Log("hello");
+            if (Input.GetKeyDown(KeyCode.Return)){
+                isTimePaused=!isTimePaused;
+                ghost.GetComponent<GhostBehaviour>().updateRemainTurns(6);
+                foreach (var fire in FireGhost.all_fires){
+                    // print(fire);
+                    if (fire!=null){
+                        Destroy(fire.gameObject, 0f);
+                        
+                    }
                 }
-            }
-            FireGhost.counter=0;
-           
+                FireGhost.counter=0;
             
-           
-            
-        }
-        if (!isTimePaused)
-        {
-            vcam.Follow = GameObject.Find("player_characters").transform;
-            ghost.GetComponent<GhostBehaviour>().x_pos = x_pos;
-            ghost.GetComponent<GhostBehaviour>().y_pos = y_pos;
-            ghost.transform.position = this.transform.position;
-
-            // print(real_fires.Count);
-            if (player_inputs.Count != 0) {
                 
-                if(player_inputs.Count != 0 && Time.frameCount % frameDelay == 0){
-                    
-                    ghost.SetActive(false);
-                    move(player_inputs.Dequeue());
-                    
-                }
-            }
-            if(real_fires.Count != 0){
-                Destroy(real_fires.Dequeue().gameObject, 4f);
-            }
             
+                
+            }
+            if (!isTimePaused)
+            {
+                vcam.Follow = gameObject.transform;
+                ghost.GetComponent<GhostBehaviour>().x_pos = x_pos;
+                ghost.GetComponent<GhostBehaviour>().y_pos = y_pos;
+                ghost.transform.position = this.transform.position;
+
+                // print(real_fires.Count);
+                if (player_inputs.Count != 0) {
+                    
+                    if(player_inputs.Count != 0 && Time.frameCount % frameDelay == 0){
+                        
+                        ghost.SetActive(false);
+                        move(player_inputs.Dequeue());
+                        
+                    }
+                }
+                if(real_fires.Count != 0){
+                    Destroy(real_fires.Dequeue().gameObject, 4f);
+                }
+                
+                else
+                {
+                    if (real_fires.Count != 0 && Time.frameCount % frameDelay == 0)
+                    {
+                        Destroy(real_fires.Dequeue().gameObject, 0f);
+                    }
+                }
+
+            }
             else
             {
-                if (real_fires.Count != 0 && Time.frameCount % frameDelay == 0)
-                {
+                if(real_fires.Count!=0 && Time.frameCount % frameDelay == 0){
                     Destroy(real_fires.Dequeue().gameObject, 0f);
                 }
-            }
+                
+                if (ghost.GetComponent<GhostBehaviour>().remTurns <= 0)
+                {
+                    return;
+                }
+                
+                ghost.SetActive(true);
+                vcam.Follow = GameObject.Find("player_characters_ghost").transform;
+                
+                SpriteRenderer pauseMoveIndicatorSprite = ghost.GetComponent<SpriteRenderer>();
 
-        }
-        else
-        {
-            if(real_fires.Count!=0 && Time.frameCount % frameDelay == 0){
-                Destroy(real_fires.Dequeue().gameObject, 0f);
-            }
-            
-            if (ghost.GetComponent<GhostBehaviour>().remTurns <= 0)
-            {
-                return;
-            }
-            
-            ghost.SetActive(true);
-            vcam.Follow = GameObject.Find("player_characters_ghost").transform;
-            
-            SpriteRenderer pauseMoveIndicatorSprite = ghost.GetComponent<SpriteRenderer>();
-
-            if (Input.GetKeyDown("w")) 
-            {
-                player_inputs.Enqueue(1);
-            }
-            else if (Input.GetKeyDown("a")) 
-            {
-                player_inputs.Enqueue(2);
-            }
-            else if (Input.GetKeyDown("s")) 
-            {
-                
-                player_inputs.Enqueue(3);
-            }
-            else if (Input.GetKeyDown("d")) 
-            {
-                
-                player_inputs.Enqueue(4);
-            }
-            else if (Input.GetKeyDown("up")){
-                
-                player_inputs.Enqueue(11);
-                
-            }
-            else if (Input.GetKeyDown("left")){
-               player_inputs.Enqueue(12);
-            }
-            else if (Input.GetKeyDown("down")){
-               player_inputs.Enqueue(13);
-            }
-            else if (Input.GetKeyDown("right")){
-                player_inputs.Enqueue(14);
+                if (Input.GetKeyDown("w")) 
+                {
+                    player_inputs.Enqueue(1);
+                }
+                else if (Input.GetKeyDown("a")) 
+                {
+                    player_inputs.Enqueue(2);
+                }
+                else if (Input.GetKeyDown("s")) 
+                {
+                    
+                    player_inputs.Enqueue(3);
+                }
+                else if (Input.GetKeyDown("d")) 
+                {
+                    
+                    player_inputs.Enqueue(4);
+                }
+                else if (Input.GetKeyDown("up")){
+                    
+                    player_inputs.Enqueue(11);
+                    
+                }
+                else if (Input.GetKeyDown("left")){
+                player_inputs.Enqueue(12);
+                }
+                else if (Input.GetKeyDown("down")){
+                player_inputs.Enqueue(13);
+                }
+                else if (Input.GetKeyDown("right")){
+                    player_inputs.Enqueue(14);
+                }
             }
         }
     }

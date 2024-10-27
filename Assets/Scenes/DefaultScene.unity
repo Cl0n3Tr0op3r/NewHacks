@@ -753,10 +753,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1Prefab: {fileID: 5482041090528855058, guid: d6b4877941ec1d045b2649a0ab66154c, type: 3}
   player2Prefab: {fileID: 5046630032844970186, guid: 9fdbede00473a574a91da6c1e7edb381, type: 3}
-  x1: 1000
-  y1: 1000
-  x2: 25
-  y2: 25
+  player1_fire_Prefab: {fileID: 3502087760968136295, guid: 8712ac64fd52fd641b68565cc79b0c54, type: 3}
+  player2_fire_Prefab: {fileID: 3502087760968136295, guid: c2adb47b850fa8549abbd06e0d1d11ce, type: 3}
+  player1_fireghost_Prefab: {fileID: 9169048405724566485, guid: 185f192ddbd107e42a4a0cf1ce977e9f, type: 3}
+  player2_fireghost_Prefab: {fileID: 3502087760968136295, guid: c2adb47b850fa8549abbd06e0d1d11ce, type: 3}
+  player1_word_Prefab: {fileID: 7701000361201678730, guid: aaaeb3a379090ce4ea8c3ebab2ac42a4, type: 3}
+  player2_word_Prefab: {fileID: 7701000361201678730, guid: 2c0eb6a580a70574a821a46c4dd1ad2c, type: 3}
+  player1_score_Prefab: {fileID: 7628987792909239997, guid: a9e643819519f9741b751f011a2e87c8, type: 3}
+  player2_score_Prefab: {fileID: 7628987792909239997, guid: 91b3b1066235a584faf3861fc8fdf5d0, type: 3}
+  player1_camera_Prefab: {fileID: 5897131017182153833, guid: 699a4e22ca6faad4a9f8ab64e0609604, type: 3}
+  player2_camera_Prefab: {fileID: 5897131017182153833, guid: c8d30d0f2efa5534ba33cf6bfc331f3b, type: 3}
+  x1: 100
+  y1: 0
+  x2: 500
+  y2: 250
 --- !u!4 &2021387890
 Transform:
   m_ObjectHideFlags: 0
@@ -780,6 +790,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1220121070}
     m_Modifications:
+    - target: {fileID: -1894958759766890617, guid: a9e643819519f9741b751f011a2e87c8, type: 3}
+      propertyPath: sceneViewId
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6629034146603040774, guid: a9e643819519f9741b751f011a2e87c8, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -877,6 +891,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1220121070}
     m_Modifications:
+    - target: {fileID: -5231837966956642266, guid: aaaeb3a379090ce4ea8c3ebab2ac42a4, type: 3}
+      propertyPath: sceneViewId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3187305914924240315, guid: aaaeb3a379090ce4ea8c3ebab2ac42a4, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1017,6 +1035,10 @@ PrefabInstance:
     - target: {fileID: 5897131017182153833, guid: 699a4e22ca6faad4a9f8ab64e0609604, type: 3}
       propertyPath: m_Name
       value: Virtual Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 7382615015176662071, guid: 699a4e22ca6faad4a9f8ab64e0609604, type: 3}
+      propertyPath: sceneViewId
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
