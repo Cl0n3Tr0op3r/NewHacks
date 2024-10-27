@@ -53,6 +53,9 @@ public class Isometric2DMovement : MonoBehaviour
 
     void Update()
     {  
+        if (dead==true){
+            Destroy(this.gameObject);
+        }
         if (view.IsMine)
         {
              transform.position = new Vector3( (float)(y_pos * 0.5 + x_pos * 0.5), (float)(y_pos * 0.25 - x_pos *0.25),0f );
@@ -90,7 +93,7 @@ public class Isometric2DMovement : MonoBehaviour
                     }
                 }
                 if(real_fires.Count != 0){
-                    Destroy(real_fires.Dequeue().gameObject, 4f);
+                    Destroy(real_fires.Dequeue().gameObject, 0.66666f);
                 }
 
             }
@@ -200,8 +203,7 @@ public class Isometric2DMovement : MonoBehaviour
             foreach (Isometric2DMovement player in list_of_players){
                 if (player.x_pos == x_pos && player.y_pos == y_pos + 1){
                     player.dead=true;
-                    Isometric2DMovement.gameOver = true;
-                    // death or attack animation
+                    player.gameObject.SetActive(false);
                 }
             }
         }
@@ -219,8 +221,7 @@ public class Isometric2DMovement : MonoBehaviour
             foreach (Isometric2DMovement player in list_of_players){
                 if (player.x_pos == x_pos -1 && player.y_pos == y_pos){
                     player.dead=true;
-                    Isometric2DMovement.gameOver = true;
-                    // death or attack animation
+                    player.gameObject.SetActive(false);
                 }
             }
         }
@@ -236,7 +237,7 @@ public class Isometric2DMovement : MonoBehaviour
             foreach (Isometric2DMovement player in list_of_players){
                 if (player.x_pos == x_pos  && player.y_pos == y_pos - 1){
                     player.dead=true;
-                    Isometric2DMovement.gameOver = true;
+                    player.gameObject.SetActive(false);
                     // death or attack animation
                 }
             }
@@ -253,7 +254,7 @@ public class Isometric2DMovement : MonoBehaviour
             foreach (Isometric2DMovement player in list_of_players){
                 if (player.x_pos == x_pos + 1 && player.y_pos == y_pos){
                     player.dead=true;
-                    Isometric2DMovement.gameOver = true;
+                    player.gameObject.SetActive(false);
                     // death or attack animation
                 }
             }

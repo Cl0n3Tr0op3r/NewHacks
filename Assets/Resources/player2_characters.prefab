@@ -113,7 +113,7 @@ MonoBehaviour:
   - {fileID: 1947723988, guid: fa56b0191a4d74659ba9ac39723d2862, type: 3}
   dead: 0
   isTimePaused: 1
-  ghost: {fileID: 548841849854941419}
+  ghost: {fileID: 5330635824354000123, guid: 87ca53e383f241049ae7ff8a3c934948, type: 3}
   fire_prefab: {fileID: 3502087760968136295, guid: c2adb47b850fa8549abbd06e0d1d11ce, type: 3}
   frameDelay: 300
 --- !u!114 &2237498610170788281
@@ -340,11 +340,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87ca53e383f241049ae7ff8a3c934948, type: 3}
---- !u!1 &548841849854941419 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5330635824354000123, guid: 87ca53e383f241049ae7ff8a3c934948, type: 3}
-  m_PrefabInstance: {fileID: 5649723724466725904}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6632219762090586037 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1327921386774301605, guid: 87ca53e383f241049ae7ff8a3c934948, type: 3}
