@@ -54,7 +54,7 @@ public class GhostBehaviour : MonoBehaviour
         if (isTimePaused)
         {   
 
-            if (remTurns != 0){
+            if (remTurns >= 0){
                 if (Input.GetKeyDown("w")) 
                 {
                     move(1);
