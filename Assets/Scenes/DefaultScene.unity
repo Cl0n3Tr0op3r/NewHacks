@@ -250,6 +250,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &379770066
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 379770068}
+  - component: {fileID: 379770067}
+  m_Layer: 0
+  m_Name: SyncedVar
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &379770067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 379770066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e555d7153c754d0fb27b7bc2b16d8d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &379770068
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 379770066}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &466946254 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6629034146603040774, guid: a9e643819519f9741b751f011a2e87c8, type: 3}
@@ -635,10 +679,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilemap: {fileID: 1279051765}
   tile: {fileID: 11400000, guid: a60b2cfa94f31422887619d94bea5748, type: 2}
-  start_x: -10
-  end_x: 10
-  start_y: -5
-  end_y: 5
+  start_x: -3
+  end_x: 3
+  start_y: -7
+  end_y: 7
 --- !u!1 &1508572151
 GameObject:
   m_ObjectHideFlags: 0
@@ -655,7 +699,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1508572152
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -697,7 +741,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d971504295a3f483cb8d6732c55fc78a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6f27f842eaaf9ac4882d70ba684c599f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -888,8 +932,8 @@ MonoBehaviour:
   player1_ghost_Prefab: {fileID: 5211339818459655705, guid: c424013fd6328ba4ab7fefc59a3f1d8d, type: 3}
   player2_ghost_Prefab: {fileID: 5330635824354000123, guid: 87ca53e383f241049ae7ff8a3c934948, type: 3}
   x1: 0
-  y1: 0
-  x2: 3
+  y1: -3
+  x2: 0
   y2: 3
 --- !u!4 &2021387890
 Transform:
@@ -1185,3 +1229,4 @@ SceneRoots:
   - {fileID: 2021387890}
   - {fileID: 229695036}
   - {fileID: 1508572153}
+  - {fileID: 379770068}

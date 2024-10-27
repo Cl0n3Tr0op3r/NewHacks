@@ -195,7 +195,6 @@ MonoBehaviour:
   - {fileID: 15769483, guid: fa56b0191a4d74659ba9ac39723d2862, type: 3}
   - {fileID: 1947723988, guid: fa56b0191a4d74659ba9ac39723d2862, type: 3}
   dead: 0
-  isTimePaused: 0
   ghost: {fileID: 5974712205154106636}
   firePrefab: {fileID: 5480144782560936372, guid: 9e1140413f4f243e0bd226c0af52f2a8, type: 3}
   frameDelay: 300

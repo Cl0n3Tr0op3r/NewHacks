@@ -6,8 +6,9 @@ using Photon.Pun;
 
 public class Isometric2DMovement : MonoBehaviour
 {
-    [SerializeField] private CinemachineVirtualCamera vcam; 
     public int x_pos;
+
+    private SyncedVar syncedVar;
     public int y_pos;
     public SpriteRenderer spriteRenderer;
     [SerializeField] public Sprite[] spriteArray;
@@ -17,7 +18,6 @@ public class Isometric2DMovement : MonoBehaviour
 
     PhotonView view;
 
-    [SerializeField] public bool isTimePaused = false;
     public Queue<int> player_inputs = new Queue<int>();
     [SerializeField] public GameObject ghost;
     [SerializeField] public GameObject firePrefab;
@@ -25,18 +25,19 @@ public class Isometric2DMovement : MonoBehaviour
     public int frameDelay = 1;
 
 
-    public static LinkedList<Isometric2DMovement> list_of_players = new LinkedList<Isometric2DMovement>();
+    public static Isometric2DMovement[] list_of_players = new Isometric2DMovement[2];
 
 
     void Start()
     {
 
+        syncedVar=GameObject.Find("SyncedVar").GetComponent<SyncedVar>();
         Debug.developerConsoleVisible=true;
         
         //
 
 
-        isTimePaused = true;
+        PauseHandler.isTimePaused = true;
 
 
         
@@ -44,8 +45,15 @@ public class Isometric2DMovement : MonoBehaviour
         transform.position=new Vector3(0f,0f,0f);
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         map = GameObject.Find("Grid").GetComponent<TilemapMapGenerator>();
-        list_of_players.AddLast(this);
+       
         view = GetComponent<PhotonView>();
+
+        if (list_of_players[0]==null){
+            list_of_players[0]=this;
+        }
+        else{
+            list_of_players[1]=this;
+        }
       
         
 
@@ -53,13 +61,20 @@ public class Isometric2DMovement : MonoBehaviour
 
     void Update()
     {  
+        if (SyncedVar.player1lose==true && this==Isometric2DMovement.list_of_players[0] ||
+        SyncedVar.player2lose==true && this==Isometric2DMovement.list_of_players[1]){
+            gameObject.SetActive(false);
+
+        }
+
+
         if (view.IsMine)
         {
             transform.position = new Vector3( (float)(y_pos * 0.5 + x_pos * 0.5), (float)(y_pos * 0.25 - x_pos *0.25),0f );
 
             if (Input.GetKeyDown(KeyCode.Return))
             {
-                isTimePaused=!isTimePaused;
+                PauseHandler.isTimePaused=!PauseHandler.isTimePaused;
                 ghost.gameObject.SetActive(false);
                 ghost.GetComponent<GhostBehaviour>().updateRemainTurns(6);
                 foreach (var fire in FireGhost.all_fires){
@@ -72,10 +87,8 @@ public class Isometric2DMovement : MonoBehaviour
                 FireGhost.counter=0;
                 
             }
-            if (!isTimePaused)
+            if (!PauseHandler.isTimePaused)
             {
-
-                vcam.Follow = gameObject.transform;
                 ghost.GetComponent<GhostBehaviour>().x_pos = x_pos;
                 ghost.GetComponent<GhostBehaviour>().y_pos = y_pos;
                 ghost.transform.position = this.transform.position;
@@ -106,7 +119,7 @@ public class Isometric2DMovement : MonoBehaviour
                 
 
                 ghost.SetActive(true);
-                vcam.Follow = ghost.transform;
+              
                 
                 SpriteRenderer pauseMoveIndicatorSprite = ghost.GetComponent<SpriteRenderer>();
 
@@ -158,7 +171,16 @@ public class Isometric2DMovement : MonoBehaviour
         // dir    10 11 12 13
         // attack 
         
-        
+        if (gameOver==true){
+            if(list_of_players[0].dead){
+                Debug.Log("Player 2 wins");
+            }
+            else{
+                Debug.Log("Player 1 wins");
+            }
+        }
+
+
         if (dir == 1){
             if((map.end_y)>=y_pos){
                 y_pos+=1;
@@ -182,8 +204,7 @@ public class Isometric2DMovement : MonoBehaviour
                 x_pos+=1;
             }
             
-            spriteRenderer.sprite = spriteArray[0];
-            
+            spriteRenderer.sprite = spriteArray[0];   
         }
 
         else if (dir == 11){
@@ -196,13 +217,23 @@ public class Isometric2DMovement : MonoBehaviour
             fireBehaviour.y_pos = y_pos+1;
             
             fire.SetActive(true);
+            Isometric2DMovement[] list_of_players = Isometric2DMovement.list_of_players;
 
-            foreach (Isometric2DMovement player in list_of_players){
-                if (player.x_pos == x_pos && player.y_pos == y_pos + 1){
-                    player.dead=true;
-                    Isometric2DMovement.gameOver = true;
+            if (list_of_players[0].x_pos == x_pos+1  && list_of_players[0].y_pos == y_pos ){
+                list_of_players[0].dead=true;
+                Isometric2DMovement.gameOver = true;
+                SyncedVar.updateWinLoss(true, false);
                     // death or attack animation
-                }
+                
+               
+            }
+            else if (list_of_players[1].x_pos == x_pos+1  && list_of_players[1].y_pos == y_pos ){
+                list_of_players[0].dead=true;
+                Isometric2DMovement.gameOver = true;
+                SyncedVar.updateWinLoss(false, true);
+                    // death or attack animation
+                
+               
             }
         }
         else if (dir == 12){
@@ -216,13 +247,21 @@ public class Isometric2DMovement : MonoBehaviour
             fireBehaviour.y_pos = y_pos;
             
             fire.SetActive(true);
-
-            foreach (Isometric2DMovement player in list_of_players){
-                if (player.x_pos == x_pos -1 && player.y_pos == y_pos){
-                    player.dead=true;
-                    Isometric2DMovement.gameOver = true;
+            Isometric2DMovement[] list_of_players = Isometric2DMovement.list_of_players;
+            if (list_of_players[0].x_pos == x_pos+1  && list_of_players[0].y_pos == y_pos ){
+                list_of_players[0].dead=true;
+                Isometric2DMovement.gameOver = true;
+                gameOver=true;
                     // death or attack animation
-                }
+                
+               
+            }
+            else if (list_of_players[1].x_pos == x_pos+1  && list_of_players[1].y_pos == y_pos ){
+                list_of_players[0].dead=true;
+                Isometric2DMovement.gameOver = true;
+                gameOver=true;
+                
+               
             }
         }
         else if (dir == 13){
@@ -233,14 +272,22 @@ public class Isometric2DMovement : MonoBehaviour
             real_fires.Enqueue(fire);
             fireBehaviour.x_pos = x_pos;
             fireBehaviour.y_pos = y_pos-1;
-            
+            Isometric2DMovement[] list_of_players = Isometric2DMovement.list_of_players;
             fire.SetActive(true);
-            foreach (Isometric2DMovement player in list_of_players){
-                if (player.x_pos == x_pos  && player.y_pos == y_pos - 1){
-                    player.dead=true;
-                    Isometric2DMovement.gameOver = true;
+            if (list_of_players[0].x_pos == x_pos+1  && list_of_players[0].y_pos == y_pos ){
+                list_of_players[0].dead=true;
+                Isometric2DMovement.gameOver = true;
+                gameOver=true;
                     // death or attack animation
-                }
+                
+               
+            }
+            else if (list_of_players[1].x_pos == x_pos+1  && list_of_players[1].y_pos == y_pos ){
+                list_of_players[0].dead=true;
+                Isometric2DMovement.gameOver = true;
+                gameOver=true;
+                
+               
             }
         }
         else if (dir == 14){
@@ -251,14 +298,24 @@ public class Isometric2DMovement : MonoBehaviour
             real_fires.Enqueue(fire);
             fireBehaviour.x_pos = x_pos+1;
             fireBehaviour.y_pos = y_pos;
-            
+            Isometric2DMovement[] list_of_players = Isometric2DMovement.list_of_players;
             fire.SetActive(true);
-            foreach (Isometric2DMovement player in list_of_players){
-                if (player.x_pos == x_pos + 1 && player.y_pos == y_pos){
-                    player.dead=true;
-                    Isometric2DMovement.gameOver = true;
+            
+            if (list_of_players[0].x_pos == x_pos+1  && list_of_players[0].y_pos == y_pos ){
+                list_of_players[0].dead=true;
+                Isometric2DMovement.gameOver = true;
+                SyncedVar.updateWinLoss(true, false);
                     // death or attack animation
-                }
+                
+               
+            }
+            else if (list_of_players[1].x_pos == x_pos+1  && list_of_players[1].y_pos == y_pos ){
+                list_of_players[0].dead=true;
+                Isometric2DMovement.gameOver = true;
+                SyncedVar.updateWinLoss(false, true);
+                    // death or attack animation
+                
+               
             }
         }
         
