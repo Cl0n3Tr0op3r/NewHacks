@@ -6,7 +6,6 @@ using Photon.Pun;
 
 public class Isometric2DMovement : MonoBehaviour
 {
-    [SerializeField] private CinemachineVirtualCamera vcam; 
     public int x_pos;
 
     private SyncedVar syncedVar;
@@ -92,7 +91,6 @@ list_of_players[1]){
             }
             if (!PauseHandler.isTimePaused)
             {
-                vcam.Follow = gameObject.transform;
                 ghost.GetComponent<GhostBehaviour>().x_pos = x_pos;
                 ghost.GetComponent<GhostBehaviour>().y_pos = y_pos;
                 ghost.transform.position = this.transform.position;
@@ -126,7 +124,7 @@ list_of_players[1]){
                 
 
                 ghost.SetActive(true);
-                vcam.Follow = GameObject.Find("player_characters_ghost").transform;
+              
                 
                 SpriteRenderer pauseMoveIndicatorSprite = ghost.GetComponent<SpriteRenderer>();
 
