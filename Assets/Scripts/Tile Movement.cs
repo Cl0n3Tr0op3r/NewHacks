@@ -18,6 +18,7 @@ public class Isometric2DMovement : MonoBehaviour
     [SerializeField] public bool isTimePaused = false;
     public Queue<int> player_inputs = new Queue<int>();
     [SerializeField] public GameObject ghost;
+    [SerializeField] public GameObject fire_prefab;
 
 
     public static LinkedList<Isometric2DMovement> list_of_players = new LinkedList<Isometric2DMovement>();
@@ -83,7 +84,6 @@ public class Isometric2DMovement : MonoBehaviour
 
             if (Input.GetKeyDown("w")) 
             {
-               
                 player_inputs.Enqueue(1);
             }
             else if (Input.GetKeyDown("a")) 
@@ -101,6 +101,7 @@ public class Isometric2DMovement : MonoBehaviour
                 player_inputs.Enqueue(4);
             }
             else if (Input.GetKeyDown("up")){
+                
                 player_inputs.Enqueue(11);
                 
             }
@@ -156,6 +157,8 @@ public class Isometric2DMovement : MonoBehaviour
         }
 
         else if (dir == 11){
+            GameObject fire = GameObject.Instantiate(fire_prefab) as GameObject;
+            fire.GetComponent<Fire>().startFrame=Time.frameCount;
             foreach (Isometric2DMovement player in list_of_players){
                 if (player.x_pos == x_pos && player.y_pos == y_pos + 1){
                     player.dead=true;
@@ -166,6 +169,9 @@ public class Isometric2DMovement : MonoBehaviour
         }
         else if (dir == 12){
 
+            GameObject fire = GameObject.Instantiate(fire_prefab) as GameObject;
+            fire.GetComponent<Fire>().startFrame=Time.frameCount;
+
             foreach (Isometric2DMovement player in list_of_players){
                 if (player.x_pos == x_pos -1 && player.y_pos == y_pos){
                     player.dead=true;
@@ -175,6 +181,8 @@ public class Isometric2DMovement : MonoBehaviour
             }
         }
         else if (dir == 13){
+            GameObject fire = GameObject.Instantiate(fire_prefab) as GameObject;
+            fire.GetComponent<Fire>().startFrame=Time.frameCount;
             foreach (Isometric2DMovement player in list_of_players){
                 if (player.x_pos == x_pos  && player.y_pos == y_pos - 1){
                     player.dead=true;
@@ -184,6 +192,8 @@ public class Isometric2DMovement : MonoBehaviour
             }
         }
         else if (dir == 14){
+            GameObject fire = GameObject.Instantiate(fire_prefab) as GameObject;
+            fire.GetComponent<Fire>().startFrame=Time.frameCount;
             foreach (Isometric2DMovement player in list_of_players){
                 if (player.x_pos == x_pos + 1 && player.y_pos == y_pos){
                     player.dead=true;
