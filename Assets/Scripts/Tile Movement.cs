@@ -30,9 +30,9 @@ public class Isometric2DMovement : MonoBehaviour
         if (!isTimePaused)
         {
             if (player_inputs.Count != 0) {
-                foreach (var dir in player_inputs)
+                for (int i = 0; i < player_inputs.Count; i++)
                 {
-                    move(dir);
+                    move(player_inputs.Dequeue());
                 }
             }
             else
@@ -45,6 +45,7 @@ public class Isometric2DMovement : MonoBehaviour
         }
         else
         {
+                Debug.Log(player_inputs.Count);
             if (Input.GetKeyDown("w")) player_inputs.Enqueue(1);
             if (Input.GetKeyDown("a")) player_inputs.Enqueue(2);
             if (Input.GetKeyDown("s")) player_inputs.Enqueue(3);
