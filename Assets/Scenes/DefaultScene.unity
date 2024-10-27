@@ -337,6 +337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15fdf0986f8f743439ef0668cd4ea0ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vcam: {fileID: 0}
   x_pos: 0
   y_pos: 0
   spriteRenderer: {fileID: 0}
@@ -636,6 +637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15fdf0986f8f743439ef0668cd4ea0ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vcam: {fileID: 606429557}
   x_pos: 0
   y_pos: 0
   spriteRenderer: {fileID: 0}
