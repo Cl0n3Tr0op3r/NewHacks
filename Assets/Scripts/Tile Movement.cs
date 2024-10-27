@@ -59,6 +59,9 @@ public class Isometric2DMovement : MonoBehaviour
 
     void Update()
     {  
+        if (dead==true){
+            gameObject.SetActive(false);
+        }
         if (view.IsMine)
         {
              transform.position = new Vector3( (float)(y_pos * 0.5 + x_pos * 0.5), (float)(y_pos * 0.25 - x_pos *0.25),0f );
