@@ -66,7 +66,6 @@ public class GhostBehaviour : MonoBehaviour
                     if (Input.GetKeyDown("w"))
                     {
                         move(1);
-
                     }
                     else if (Input.GetKeyDown("a"))
                     {

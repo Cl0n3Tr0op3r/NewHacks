@@ -22,7 +22,7 @@ public class Isometric2DMovement : MonoBehaviour
     [SerializeField] public GameObject ghost;
     [SerializeField] public GameObject fire_prefab;
     public Queue<GameObject> real_fires = new Queue<GameObject>();
-    public int frameDelay = 50;
+    public int frameDelay = 5;
 
 
     public static LinkedList<Isometric2DMovement> list_of_players = new LinkedList<Isometric2DMovement>();
@@ -50,9 +50,11 @@ public class Isometric2DMovement : MonoBehaviour
     }
 
     void Update()
-    {  if (view.IsMine){
-            Debug.Log("hello");
-            if (Input.GetKeyDown(KeyCode.Return)){
+    {  
+        if (view.IsMine)
+        {
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
                 isTimePaused=!isTimePaused;
                 ghost.GetComponent<GhostBehaviour>().updateRemainTurns(6);
                 foreach (var fire in FireGhost.all_fires){
@@ -63,9 +65,6 @@ public class Isometric2DMovement : MonoBehaviour
                     }
                 }
                 FireGhost.counter=0;
-            
-                
-            
                 
             }
             if (!isTimePaused)
@@ -88,14 +87,6 @@ public class Isometric2DMovement : MonoBehaviour
                 if(real_fires.Count != 0){
                     Destroy(real_fires.Dequeue().gameObject, 4f);
                 }
-                
-                else
-                {
-                    if (real_fires.Count != 0 && Time.frameCount % frameDelay == 0)
-                    {
-                        Destroy(real_fires.Dequeue().gameObject, 0f);
-                    }
-                }
 
             }
             else
@@ -109,6 +100,7 @@ public class Isometric2DMovement : MonoBehaviour
                     return;
                 }
                 
+
                 ghost.SetActive(true);
                 vcam.Follow = GameObject.Find("player_characters_ghost").transform;
                 
@@ -117,6 +109,7 @@ public class Isometric2DMovement : MonoBehaviour
                 if (Input.GetKeyDown("w")) 
                 {
                     player_inputs.Enqueue(1);
+                    
                 }
                 else if (Input.GetKeyDown("a")) 
                 {
@@ -261,7 +254,7 @@ public class Isometric2DMovement : MonoBehaviour
             }
         }
         
-        target.position = new Vector3( (float)(y_pos * 0.5 + x_pos * 0.5), (float)(y_pos * 0.25 - x_pos *0.25),0f);
+        target.position = new Vector3( (float)(y_pos * 0.5 + x_pos * 0.5), (float)(y_pos * 0.25 - x_pos *0.25),0f );
 
     }
 }
