@@ -29,9 +29,9 @@ public class Isometric2DMovement : MonoBehaviour
         if (!isTimePaused)
         {
             if (player_inputs.Count != 0) {
-                foreach (var dir in player_inputs)
+                for (int i = 0; i < player_inputs.Count; i++)
                 {
-                    move(dir);
+                    move(player_inputs.Dequeue());
                 }
             }
             else
@@ -44,6 +44,7 @@ public class Isometric2DMovement : MonoBehaviour
         }
         else
         {
+                Debug.Log(player_inputs.Count);
             if (Input.GetKeyDown("w")) player_inputs.Enqueue(1);
             if (Input.GetKeyDown("a")) player_inputs.Enqueue(2);
             if (Input.GetKeyDown("s")) player_inputs.Enqueue(3);
@@ -63,13 +64,13 @@ public class Isometric2DMovement : MonoBehaviour
             }
             spriteRenderer.sprite = spriteArray[1];
         }
-        else if (dir == 2){
+        else if (dir == 3){
             if(map.start_y+2<y_pos){
                 y_pos-=1;
             }
              spriteRenderer.sprite = spriteArray[3];
         }
-        else if (dir == 3){
+        else if (dir == 2){
             if(map.start_x<=x_pos){
                 x_pos-=1;
             }
