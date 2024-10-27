@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5921ae82c877a4d019d21819b81f0d07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vcam: {fileID: 0}
+  vcam: {fileID: 1556172368743367576, guid: 699a4e22ca6faad4a9f8ab64e0609604, type: 3}
   x_pos: 0
   y_pos: 0
   spriteRenderer: {fileID: 7480300220423372537}
@@ -110,8 +110,8 @@ MonoBehaviour:
   yourTurn: 1
   remTurns: 6
   father_ghost: {fileID: 5046630032844970186}
-  fire_ghost: {fileID: 0}
-  turnsDisplay: {fileID: 0}
+  fire_ghost: {fileID: 9169048405724566485, guid: 185f192ddbd107e42a4a0cf1ce977e9f, type: 3}
+  turnsDisplay: {fileID: 1522672925609442239, guid: aaaeb3a379090ce4ea8c3ebab2ac42a4, type: 3}
 --- !u!1 &5046630032844970186
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,7 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15fdf0986f8f743439ef0668cd4ea0ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vcam: {fileID: 0}
+  vcam: {fileID: 1556172368743367576, guid: 699a4e22ca6faad4a9f8ab64e0609604, type: 3}
   x_pos: 0
   y_pos: 0
   spriteRenderer: {fileID: 4163796070897685772}
@@ -224,7 +224,7 @@ MonoBehaviour:
   dead: 0
   isTimePaused: 1
   ghost: {fileID: 548841849854941419}
-  fire_prefab: {fileID: 0}
+  fire_prefab: {fileID: 3502087760968136295, guid: 8712ac64fd52fd641b68565cc79b0c54, type: 3}
   frameDelay: 300
 --- !u!114 &2237498610170788281
 MonoBehaviour:
