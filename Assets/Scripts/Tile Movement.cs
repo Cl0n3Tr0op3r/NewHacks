@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class Isometric2DMovement : MonoBehaviour
 {
+    
     [SerializeField] private int x_pos;
     [SerializeField] private int y_pos;
     public SpriteRenderer spriteRenderer;
@@ -63,13 +64,13 @@ public class Isometric2DMovement : MonoBehaviour
             }
             spriteRenderer.sprite = spriteArray[1];
         }
-        else if (dir == 2){
+        else if (dir == 3){
             if(map.start_y+2<y_pos){
                 y_pos-=1;
             }
              spriteRenderer.sprite = spriteArray[3];
         }
-        else if (dir == 3){
+        else if (dir == 2){
             if(map.start_x<=x_pos){
                 x_pos-=1;
             }
