@@ -10,7 +10,9 @@ public class FireGhost : MonoBehaviour
     public static int counter=0;
     
 
-
+    void Start(){
+        
+    }
 
     // Update is called once per frame
     void Update()

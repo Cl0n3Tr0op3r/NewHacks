@@ -96,7 +96,8 @@ public class GhostBehaviour : MonoBehaviour
                 transform.position = parent.transform.position;
                 foreach (var fire in FireGhost.all_fires){
                     if (fire!=null){
-                        Destroy(fire.gameObject);
+                        Destroy(fire.gameObject, 0f);
+                        
                     }
                 }
                 FireGhost.counter=0;
