@@ -203,8 +203,7 @@ public class Isometric2DMovement : MonoBehaviour
             foreach (Isometric2DMovement player in list_of_players){
                 if (player.x_pos == x_pos && player.y_pos == y_pos + 1){
                     player.dead=true;
-                    Isometric2DMovement.gameOver = true;
-                    // death or attack animation
+                    player.gameObject.SetActive(false);
                 }
             }
         }
@@ -222,8 +221,7 @@ public class Isometric2DMovement : MonoBehaviour
             foreach (Isometric2DMovement player in list_of_players){
                 if (player.x_pos == x_pos -1 && player.y_pos == y_pos){
                     player.dead=true;
-                    Isometric2DMovement.gameOver = true;
-                    // death or attack animation
+                    player.gameObject.SetActive(false);
                 }
             }
         }
@@ -239,7 +237,7 @@ public class Isometric2DMovement : MonoBehaviour
             foreach (Isometric2DMovement player in list_of_players){
                 if (player.x_pos == x_pos  && player.y_pos == y_pos - 1){
                     player.dead=true;
-                    Isometric2DMovement.gameOver = true;
+                    player.gameObject.SetActive(false);
                     // death or attack animation
                 }
             }
@@ -256,7 +254,7 @@ public class Isometric2DMovement : MonoBehaviour
             foreach (Isometric2DMovement player in list_of_players){
                 if (player.x_pos == x_pos + 1 && player.y_pos == y_pos){
                     player.dead=true;
-                    Isometric2DMovement.gameOver = true;
+                    player.gameObject.SetActive(false);
                     // death or attack animation
                 }
             }
