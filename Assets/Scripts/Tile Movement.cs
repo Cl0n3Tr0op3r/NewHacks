@@ -219,7 +219,7 @@ public class Isometric2DMovement : MonoBehaviour
             fire.SetActive(true);
             Isometric2DMovement[] list_of_players = Isometric2DMovement.list_of_players;
 
-            if (list_of_players[0].x_pos == x_pos+1  && list_of_players[0].y_pos == y_pos ){
+            if (list_of_players[0].x_pos == x_pos+1  && list_of_players[0].y_pos == y_pos+1 ){
                 list_of_players[0].dead=true;
                 Isometric2DMovement.gameOver = true;
                 SyncedVar.updateWinLoss(true, false);
@@ -227,7 +227,7 @@ public class Isometric2DMovement : MonoBehaviour
                 
                
             }
-            else if (list_of_players[1].x_pos == x_pos+1  && list_of_players[1].y_pos == y_pos ){
+            else if (list_of_players[1].x_pos == x_pos  && list_of_players[1].y_pos == y_pos +1){
                 list_of_players[1].dead=true;
                 Isometric2DMovement.gameOver = true;
                 SyncedVar.updateWinLoss(false, true);
@@ -248,7 +248,7 @@ public class Isometric2DMovement : MonoBehaviour
             
             fire.SetActive(true);
             Isometric2DMovement[] list_of_players = Isometric2DMovement.list_of_players;
-            if (list_of_players[0].x_pos == x_pos+1  && list_of_players[0].y_pos == y_pos ){
+            if (list_of_players[0].x_pos == x_pos  && list_of_players[0].y_pos == y_pos-1 ){
                 list_of_players[0].dead=true;
                 Isometric2DMovement.gameOver = true;
                 gameOver=true;
@@ -257,7 +257,7 @@ public class Isometric2DMovement : MonoBehaviour
                 
                
             }
-            else if (list_of_players[1].x_pos == x_pos+1  && list_of_players[1].y_pos == y_pos ){
+            else if (list_of_players[1].x_pos == x_pos && list_of_players[1].y_pos == y_pos -1){
                 list_of_players[1].dead=true;
                 Isometric2DMovement.gameOver = true;
                 gameOver=true;
@@ -276,7 +276,7 @@ public class Isometric2DMovement : MonoBehaviour
             fireBehaviour.y_pos = y_pos-1;
             Isometric2DMovement[] list_of_players = Isometric2DMovement.list_of_players;
             fire.SetActive(true);
-            if (list_of_players[0].x_pos == x_pos+1  && list_of_players[0].y_pos == y_pos ){
+            if (list_of_players[0].x_pos == x_pos-1  && list_of_players[0].y_pos == y_pos ){
                 list_of_players[0].dead=true;
                 Isometric2DMovement.gameOver = true;
                 gameOver=true;
@@ -285,7 +285,7 @@ public class Isometric2DMovement : MonoBehaviour
                 
                
             }
-            else if (list_of_players[1].x_pos == x_pos+1  && list_of_players[1].y_pos == y_pos ){
+            else if (list_of_players[1].x_pos == x_pos-1  && list_of_players[1].y_pos == y_pos ){
                 list_of_players[1].dead=true;
                 Isometric2DMovement.gameOver = true;
                 gameOver=true;
@@ -305,10 +305,11 @@ public class Isometric2DMovement : MonoBehaviour
             Isometric2DMovement[] list_of_players = Isometric2DMovement.list_of_players;
             fire.SetActive(true);
             
-            if (list_of_players[0].x_pos == x_pos+1  && list_of_players[0].y_pos == y_pos ){
+           if (list_of_players[0].x_pos == x_pos+1  && list_of_players[0].y_pos == y_pos ){
                 list_of_players[0].dead=true;
                 Isometric2DMovement.gameOver = true;
-                SyncedVar.updateWinLoss(true, false);
+                gameOver=true;
+                SceneManager.LoadScene("Winner");
                     // death or attack animation
                 
                
@@ -316,8 +317,8 @@ public class Isometric2DMovement : MonoBehaviour
             else if (list_of_players[1].x_pos == x_pos+1  && list_of_players[1].y_pos == y_pos ){
                 list_of_players[1].dead=true;
                 Isometric2DMovement.gameOver = true;
-                SyncedVar.updateWinLoss(false, true);
-                    // death or attack animation
+                gameOver=true;
+                SceneManager.LoadScene("Winner");
                 
                
             }
