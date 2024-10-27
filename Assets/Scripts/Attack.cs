@@ -16,7 +16,10 @@ public class Attack
 
     public void attack_player(){
         foreach (Isometric2DMovement player in Isometric2DMovement.list_of_players){
-            break;
+            if (player.x_pos == caller.x_pos + x_dir && player.y_pos == caller.y_pos + y_dir){
+                player.dead=true;
+                Isometric2DMovement.gameOver = true;
+            }
         }
     }
 }
