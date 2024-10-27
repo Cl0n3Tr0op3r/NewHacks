@@ -64,7 +64,7 @@ public class Isometric2DMovement : MonoBehaviour
     {  
         if (dead){
             gameObject.SetActive(false);
-            SceneManager.LoadScene("GameOver");
+            SceneManager.LoadScene("Winner");
         }
 
 
