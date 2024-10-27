@@ -887,10 +887,10 @@ MonoBehaviour:
   player2_fireghost_Prefab: {fileID: 3502087760968136295, guid: c2adb47b850fa8549abbd06e0d1d11ce, type: 3}
   player1_ghost_Prefab: {fileID: 5211339818459655705, guid: c424013fd6328ba4ab7fefc59a3f1d8d, type: 3}
   player2_ghost_Prefab: {fileID: 5330635824354000123, guid: 87ca53e383f241049ae7ff8a3c934948, type: 3}
-  x1: -7
+  x1: 0
   y1: 0
-  x2: 7
-  y2: 0
+  x2: 3
+  y2: 3
 --- !u!4 &2021387890
 Transform:
   m_ObjectHideFlags: 0
