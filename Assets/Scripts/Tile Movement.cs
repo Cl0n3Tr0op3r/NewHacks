@@ -202,13 +202,15 @@ public class Isometric2DMovement : MonoBehaviour
             fireBehaviour.y_pos = y_pos+1;
             
             fire.SetActive(true);
+            Isometric2DMovement[] list_of_players = Isometric2DMovement.list_of_players;
 
-            foreach (Isometric2DMovement player in list_of_players){
-                if (player.x_pos == x_pos && player.y_pos == y_pos + 1){
-                    player.dead=true;
+            for (int i = 0 ; i<2 ; i++){
+                 if (list_of_players[i].x_pos == x_pos  && list_of_players[i].y_pos == y_pos + 1){
+                    list_of_players[i].dead=true;
                     Isometric2DMovement.gameOver = true;
                     // death or attack animation
                 }
+               
             }
         }
         else if (dir == 12){
@@ -221,13 +223,14 @@ public class Isometric2DMovement : MonoBehaviour
             fireBehaviour.y_pos = y_pos;
             
             fire.SetActive(true);
-
-            foreach (Isometric2DMovement player in list_of_players){
-                if (player.x_pos == x_pos -1 && player.y_pos == y_pos){
-                    player.dead=true;
+            Isometric2DMovement[] list_of_players = Isometric2DMovement.list_of_players;
+            for (int i = 0 ; i<2 ; i++){
+                 if (list_of_players[i].x_pos == x_pos-1  && list_of_players[i].y_pos == y_pos){
+                    list_of_players[i].dead=true;
                     Isometric2DMovement.gameOver = true;
                     // death or attack animation
                 }
+               
             }
         }
         else if (dir == 13){
@@ -237,14 +240,15 @@ public class Isometric2DMovement : MonoBehaviour
             Fire fireBehaviour=fire.GetComponent<Fire>();
             fireBehaviour.x_pos = x_pos;
             fireBehaviour.y_pos = y_pos-1;
-            
+            Isometric2DMovement[] list_of_players = Isometric2DMovement.list_of_players;
             fire.SetActive(true);
-            foreach (Isometric2DMovement player in list_of_players){
-                if (player.x_pos == x_pos  && player.y_pos == y_pos - 1){
-                    player.dead=true;
+            for (int i = 0 ; i<2 ; i++){
+                 if (list_of_players[i].x_pos == x_pos  && list_of_players[i].y_pos == y_pos - 1){
+                    list_of_players[i].dead=true;
                     Isometric2DMovement.gameOver = true;
                     // death or attack animation
                 }
+               
             }
         }
         else if (dir == 14){
@@ -254,14 +258,15 @@ public class Isometric2DMovement : MonoBehaviour
             Fire fireBehaviour=fire.GetComponent<Fire>();
             fireBehaviour.x_pos = x_pos+1;
             fireBehaviour.y_pos = y_pos;
-            
+            Isometric2DMovement[] list_of_players = Isometric2DMovement.list_of_players;
             fire.SetActive(true);
-            foreach (Isometric2DMovement player in list_of_players){
-                if (player.x_pos == x_pos + 1 && player.y_pos == y_pos){
-                    player.dead=true;
+            for (int i = 0 ; i<2 ; i++){
+                 if (list_of_players[i].x_pos == x_pos+1  && list_of_players[i].y_pos == y_pos ){
+                    list_of_players[i].dead=true;
                     Isometric2DMovement.gameOver = true;
                     // death or attack animation
                 }
+               
             }
         }
         
