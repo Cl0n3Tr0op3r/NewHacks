@@ -35,7 +35,8 @@ public class GhostBehaviour : MonoBehaviour
         
         //
 
-        startPos = (x_pos, y_pos);
+        x_pos = father_ghost.GetComponent<Isometric2DMovement>().x_pos;
+        y_pos = father_ghost.GetComponent<Isometric2DMovement>().y_pos;
         remTurns=6;
         updateRemainTurns(remTurns);
 
@@ -50,6 +51,8 @@ public class GhostBehaviour : MonoBehaviour
 
     void Update()
     {
+        transform.position = new Vector3( (float)(y_pos * 0.5 + x_pos * 0.5), (float)(y_pos * 0.25 - x_pos *0.25),0f);
+        
         if (view == null){
             Debug.Log("trying");
             view = GetComponent<PhotonView>();

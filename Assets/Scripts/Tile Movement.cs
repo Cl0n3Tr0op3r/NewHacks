@@ -46,6 +46,8 @@ public class Isometric2DMovement : MonoBehaviour
         map = GameObject.Find("Grid").GetComponent<TilemapMapGenerator>();
         list_of_players.AddLast(this);
         view = GetComponent<PhotonView>();
+      
+        
 
     }
 
@@ -53,9 +55,12 @@ public class Isometric2DMovement : MonoBehaviour
     {  
         if (view.IsMine)
         {
+             transform.position = new Vector3( (float)(y_pos * 0.5 + x_pos * 0.5), (float)(y_pos * 0.25 - x_pos *0.25),0f );
+
             if (Input.GetKeyDown(KeyCode.Return))
             {
                 isTimePaused=!isTimePaused;
+                ghost.gameObject.SetActive(false);
                 ghost.GetComponent<GhostBehaviour>().updateRemainTurns(6);
                 foreach (var fire in FireGhost.all_fires){
                     // print(fire);
@@ -77,7 +82,7 @@ public class Isometric2DMovement : MonoBehaviour
                 // print(real_fires.Count);
                 if (player_inputs.Count != 0) {
                     
-                    if(player_inputs.Count != 0 && Time.frameCount % frameDelay == 0){
+                    if(player_inputs.Count != 0 && Time.frameCount % 30 == 0){
                         
                         ghost.SetActive(false);
                         move(player_inputs.Dequeue());
@@ -91,7 +96,7 @@ public class Isometric2DMovement : MonoBehaviour
             }
             else
             {
-                if(real_fires.Count!=0 && Time.frameCount % frameDelay == 0){
+                if(real_fires.Count!=0 && Time.frameCount % 30 == 0){
                     Destroy(real_fires.Dequeue().gameObject, 0f);
                 }
                 
