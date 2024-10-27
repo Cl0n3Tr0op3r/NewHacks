@@ -885,18 +885,12 @@ MonoBehaviour:
   player2_fire_Prefab: {fileID: 3502087760968136295, guid: c2adb47b850fa8549abbd06e0d1d11ce, type: 3}
   player1_fireghost_Prefab: {fileID: 9169048405724566485, guid: 185f192ddbd107e42a4a0cf1ce977e9f, type: 3}
   player2_fireghost_Prefab: {fileID: 3502087760968136295, guid: c2adb47b850fa8549abbd06e0d1d11ce, type: 3}
-  player1_word_Prefab: {fileID: 7701000361201678730, guid: aaaeb3a379090ce4ea8c3ebab2ac42a4, type: 3}
-  player2_word_Prefab: {fileID: 7701000361201678730, guid: 2c0eb6a580a70574a821a46c4dd1ad2c, type: 3}
-  player1_score_Prefab: {fileID: 7628987792909239997, guid: a9e643819519f9741b751f011a2e87c8, type: 3}
-  player2_score_Prefab: {fileID: 7628987792909239997, guid: 91b3b1066235a584faf3861fc8fdf5d0, type: 3}
-  player1_camera_Prefab: {fileID: 5897131017182153833, guid: 699a4e22ca6faad4a9f8ab64e0609604, type: 3}
-  player2_camera_Prefab: {fileID: 5897131017182153833, guid: c8d30d0f2efa5534ba33cf6bfc331f3b, type: 3}
   player1_ghost_Prefab: {fileID: 5211339818459655705, guid: c424013fd6328ba4ab7fefc59a3f1d8d, type: 3}
   player2_ghost_Prefab: {fileID: 5330635824354000123, guid: 87ca53e383f241049ae7ff8a3c934948, type: 3}
-  x1: 100
-  y1: 0
-  x2: 500
-  y2: 250
+  x1: 6
+  y1: 6
+  x2: 5
+  y2: 5
 --- !u!4 &2021387890
 Transform:
   m_ObjectHideFlags: 0

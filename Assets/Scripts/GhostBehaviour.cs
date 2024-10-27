@@ -35,7 +35,8 @@ public class GhostBehaviour : MonoBehaviour
         
         //
 
-        startPos = (x_pos, y_pos);
+        x_pos = father_ghost.GetComponent<Isometric2DMovement>().x_pos;
+        y_pos = father_ghost.GetComponent<Isometric2DMovement>().y_pos;
         remTurns=6;
         updateRemainTurns(remTurns);
 

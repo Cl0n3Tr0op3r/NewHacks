@@ -11,20 +11,15 @@ public class SpawnPlayers : MonoBehaviour
     public GameObject player2_fire_Prefab;
     public GameObject player1_fireghost_Prefab;
     public GameObject player2_fireghost_Prefab;
-    public GameObject player1_word_Prefab;
-    public GameObject player2_word_Prefab;
-    public GameObject player1_score_Prefab;
-    public GameObject player2_score_Prefab;
-    public GameObject player1_camera_Prefab;
-    public GameObject player2_camera_Prefab;
+
     
     public GameObject player1_ghost_Prefab;
     public GameObject player2_ghost_Prefab;
 
-    public float x1;
-    public float y1;
-    public float x2;
-    public float y2;
+    public int x1;
+    public int y1;
+    public int x2;
+    public int y2;
 
     private void Start()
     {
@@ -44,7 +39,10 @@ public class SpawnPlayers : MonoBehaviour
             firePrefab = player1_fire_Prefab;
             fireghostPrefab = player1_fireghost_Prefab;
             ghostPrefab = player1_ghost_Prefab;
-            spawnPosition = new Vector2(x1, y1);
+            
+            GameObject player = PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(0f,0f), Quaternion.identity);
+            player.GetComponent<Isometric2DMovement>().x_pos = x1;
+            player.GetComponent<Isometric2DMovement>().y_pos = y1;
         }
         else
         {
@@ -53,15 +51,18 @@ public class SpawnPlayers : MonoBehaviour
             firePrefab = player2_fire_Prefab;
             fireghostPrefab = player2_fireghost_Prefab;
             ghostPrefab = player2_ghost_Prefab;
-
-            spawnPosition = new Vector2(x2, y2);
+            GameObject player = PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(0f,0f), Quaternion.identity);
+            player.GetComponent<Isometric2DMovement>().x_pos = x2;
+            player.GetComponent<Isometric2DMovement>().y_pos = y2;
+     
         }
 
         // Instantiate the chosen player prefab at the specified position
-        PhotonNetwork.Instantiate(playerPrefab.name, spawnPosition, Quaternion.identity);
-        PhotonNetwork.Instantiate(firePrefab.name, spawnPosition, Quaternion.identity);
-        PhotonNetwork.Instantiate(fireghostPrefab.name, spawnPosition, Quaternion.identity);
-        PhotonNetwork.Instantiate(ghostPrefab.name, spawnPosition, Quaternion.identity);
+       
+
+        PhotonNetwork.Instantiate(firePrefab.name, new Vector2(0f,0f), Quaternion.identity);
+        PhotonNetwork.Instantiate(fireghostPrefab.name, new Vector2(0f,0f), Quaternion.identity);
+        PhotonNetwork.Instantiate(ghostPrefab.name, new Vector2(0f,0f), Quaternion.identity);
       
        
     }   
