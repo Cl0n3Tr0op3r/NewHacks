@@ -17,6 +17,9 @@ public class SpawnPlayers : MonoBehaviour
     public GameObject player2_score_Prefab;
     public GameObject player1_camera_Prefab;
     public GameObject player2_camera_Prefab;
+    
+    public GameObject player1_ghost_Prefab;
+    public GameObject player2_ghost_Prefab;
 
     public float x1;
     public float y1;
@@ -28,6 +31,7 @@ public class SpawnPlayers : MonoBehaviour
         GameObject playerPrefab;
         GameObject firePrefab;
         GameObject fireghostPrefab;
+        GameObject ghostPrefab;
 
         
         Vector2 spawnPosition;
@@ -39,6 +43,7 @@ public class SpawnPlayers : MonoBehaviour
             playerPrefab = player1Prefab;
             firePrefab = player1_fire_Prefab;
             fireghostPrefab = player1_fireghost_Prefab;
+            ghostPrefab = player1_ghost_Prefab;
             spawnPosition = new Vector2(x1, y1);
         }
         else
@@ -47,6 +52,7 @@ public class SpawnPlayers : MonoBehaviour
             playerPrefab = player2Prefab;
             firePrefab = player2_fire_Prefab;
             fireghostPrefab = player2_fireghost_Prefab;
+            ghostPrefab = player2_ghost_Prefab;
 
             spawnPosition = new Vector2(x2, y2);
         }
@@ -55,6 +61,7 @@ public class SpawnPlayers : MonoBehaviour
         PhotonNetwork.Instantiate(playerPrefab.name, spawnPosition, Quaternion.identity);
         PhotonNetwork.Instantiate(firePrefab.name, spawnPosition, Quaternion.identity);
         PhotonNetwork.Instantiate(fireghostPrefab.name, spawnPosition, Quaternion.identity);
+        PhotonNetwork.Instantiate(ghostPrefab.name, spawnPosition, Quaternion.identity);
       
        
     }   

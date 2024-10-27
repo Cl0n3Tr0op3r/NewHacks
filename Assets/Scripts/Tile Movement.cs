@@ -22,7 +22,7 @@ public class Isometric2DMovement : MonoBehaviour
     [SerializeField] public GameObject ghost;
     [SerializeField] public GameObject fire_prefab;
     public Queue<GameObject> real_fires = new Queue<GameObject>();
-    public int frameDelay = 5;
+    public int frameDelay = 1;
 
 
     public static LinkedList<Isometric2DMovement> list_of_players = new LinkedList<Isometric2DMovement>();
@@ -109,7 +109,7 @@ public class Isometric2DMovement : MonoBehaviour
                 if (Input.GetKeyDown("w")) 
                 {
                     player_inputs.Enqueue(1);
-                    
+
                 }
                 else if (Input.GetKeyDown("a")) 
                 {

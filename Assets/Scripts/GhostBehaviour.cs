@@ -56,7 +56,7 @@ public class GhostBehaviour : MonoBehaviour
         }
         else if (view.IsMine)
         {
-            bool isTimePaused = GameObject.Find("player_characters").GetComponent<Isometric2DMovement>().isTimePaused;
+            bool isTimePaused = father_ghost.GetComponent<Isometric2DMovement>().isTimePaused;
             if (isTimePaused)
             {
 

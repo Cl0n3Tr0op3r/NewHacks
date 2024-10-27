@@ -763,6 +763,8 @@ MonoBehaviour:
   player2_score_Prefab: {fileID: 7628987792909239997, guid: 91b3b1066235a584faf3861fc8fdf5d0, type: 3}
   player1_camera_Prefab: {fileID: 5897131017182153833, guid: 699a4e22ca6faad4a9f8ab64e0609604, type: 3}
   player2_camera_Prefab: {fileID: 5897131017182153833, guid: c8d30d0f2efa5534ba33cf6bfc331f3b, type: 3}
+  player1_ghost_Prefab: {fileID: 5211339818459655705, guid: c424013fd6328ba4ab7fefc59a3f1d8d, type: 3}
+  player2_ghost_Prefab: {fileID: 5330635824354000123, guid: 87ca53e383f241049ae7ff8a3c934948, type: 3}
   x1: 100
   y1: 0
   x2: 500
