@@ -455,11 +455,8 @@ MonoBehaviour:
   - {fileID: 15769483, guid: fa56b0191a4d74659ba9ac39723d2862, type: 3}
   - {fileID: 1947723988, guid: fa56b0191a4d74659ba9ac39723d2862, type: 3}
   dead: 0
-  yourTurn: 0
-  remTurns: 0
-  ghost: {fileID: 1740192384}
   isTimePaused: 0
-  pausedMoveIndicator: {fileID: 1740192384}
+  ghost: {fileID: 1740192384}
 --- !u!212 &1584361094
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -584,6 +581,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1740192385}
   - component: {fileID: 1740192386}
+  - component: {fileID: 1740192387}
   m_Layer: 0
   m_Name: player_characters_ghost
   m_TagString: Untagged
@@ -658,6 +656,30 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1740192387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740192384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5921ae82c877a4d019d21819b81f0d07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vcam: {fileID: 0}
+  x_pos: 0
+  y_pos: 0
+  spriteRenderer: {fileID: 0}
+  spriteArray:
+  - {fileID: -1493863708, guid: fa56b0191a4d74659ba9ac39723d2862, type: 3}
+  - {fileID: 1285801600, guid: fa56b0191a4d74659ba9ac39723d2862, type: 3}
+  - {fileID: 15769483, guid: fa56b0191a4d74659ba9ac39723d2862, type: 3}
+  - {fileID: 1947723988, guid: fa56b0191a4d74659ba9ac39723d2862, type: 3}
+  dead: 0
+  yourTurn: 0
+  remTurns: 0
 --- !u!1 &1970809429
 GameObject:
   m_ObjectHideFlags: 0

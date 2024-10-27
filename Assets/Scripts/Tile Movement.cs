@@ -13,9 +13,7 @@ public class Isometric2DMovement : MonoBehaviour
     TilemapMapGenerator map;
     public bool dead;
     public static bool gameOver;
-    public bool yourTurn;
-    public (int, int) startPos;
-    public int remTurns;
+
 
     [SerializeField] public bool isTimePaused = false;
     public Queue<int> player_inputs = new Queue<int>();
@@ -27,13 +25,13 @@ public class Isometric2DMovement : MonoBehaviour
 
     void Start()
     {
-        yourTurn=true;
+
         
         //
 
-        startPos = (x_pos, y_pos);
+
         isTimePaused = true;
-        remTurns=6; 
+
 
         //
 
@@ -49,28 +47,35 @@ public class Isometric2DMovement : MonoBehaviour
         if (!isTimePaused)
         {
             vcam.Follow = GameObject.Find("player_characters").transform;
+            ghost.GetComponent<GhostBehaviour>().x_pos = x_pos;
+            ghost.GetComponent<GhostBehaviour>().y_pos = y_pos;
+            ghost.transform.position = this.transform.position;
             if (player_inputs.Count != 0) {
                 
-                if(player_inputs.Count != 0){
+                if(player_inputs.Count != 0 && Time.frameCount % 30 == 0){
+                    ghost.SetActive(false);
                     int asd=player_inputs.Dequeue();
                     
-                    //Debug.Log(asd);
-                    //move(asd);
-                    //Debug.Log(player_inputs.Count);
+                    
+                    move(asd);
+                    
                 }
                 
                 
 
-                ghost.transform.position = this.transform.position;
+                
+                
             }
+            /*
             else
             {
                 ghost.SetActive(false);
                 if (Input.GetKeyDown("w")) move(1);
                 if (Input.GetKeyDown("a")) move(2);
                 if (Input.GetKeyDown("s")) move(3);
-                if (Input.GetKeyDown("d")) move(4);
+                if (Input.GetKeyDown("d")) move(4); // maybe comment out later
             }
+            */
 
         }
         else
@@ -83,22 +88,22 @@ public class Isometric2DMovement : MonoBehaviour
 
             if (Input.GetKeyDown("w")) 
             {
-                move(1, ghost.transform, pauseMoveIndicatorSprite);
+               
                 player_inputs.Enqueue(1);
             }
             else if (Input.GetKeyDown("a")) 
             {
-                move(2, ghost.transform, pauseMoveIndicatorSprite);
+               
                 player_inputs.Enqueue(2);
             }
             else if (Input.GetKeyDown("s")) 
             {
-                move(3, ghost.transform, pauseMoveIndicatorSprite);
+                
                 player_inputs.Enqueue(3);
             }
             else if (Input.GetKeyDown("d")) 
             {
-                move(4, ghost.transform, pauseMoveIndicatorSprite);
+                
                 player_inputs.Enqueue(4);
             }
         }
