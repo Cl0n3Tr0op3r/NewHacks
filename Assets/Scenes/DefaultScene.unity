@@ -661,6 +661,11 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &1335517514 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5480144782560936372, guid: 9e1140413f4f243e0bd226c0af52f2a8, type: 3}
+  m_PrefabInstance: {fileID: 3895761609778271588}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1371562043
 GameObject:
   m_ObjectHideFlags: 0
@@ -902,6 +907,7 @@ MonoBehaviour:
   dead: 0
   isTimePaused: 0
   ghost: {fileID: 1740192384}
+  fire_prefab: {fileID: 1335517514}
 --- !u!212 &1584361094
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -986,6 +992,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   x_pos: 0
   y_pos: 0
+  startFrame: 0
 --- !u!1 &1636856709
 GameObject:
   m_ObjectHideFlags: 0
