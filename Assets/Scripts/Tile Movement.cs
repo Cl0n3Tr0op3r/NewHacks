@@ -15,7 +15,7 @@ public class Isometric2DMovement : MonoBehaviour
     [SerializeField] public bool isTimePaused = false;
     public Queue<int> player_inputs = new Queue<int>();
 
-    public static LinkedList<GameObject> players = new LinkedList<GameObject>();
+    public static LinkedList<Isometric2DMovement> list_of_players = new LinkedList<Isometric2DMovement>();
 
 
     void Start()
@@ -23,7 +23,7 @@ public class Isometric2DMovement : MonoBehaviour
         transform.position=new Vector3(0f,0f,0f);
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         map = GameObject.Find("Grid").GetComponent<TilemapMapGenerator>();
-        // players.AddLast(this);
+        list_of_players.AddLast(this);
     }
 
     void Update()

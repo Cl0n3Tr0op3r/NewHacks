@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Attack : MonoBehaviour
+public class Attack
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public int x_dir; // x_dir == 1, -1 or 0
+    public int y_dir; // y_dir == 1, -1 or 0
+    public Isometric2DMovement caller;
+
+    public Attack(int x_dir, int y_dir, Isometric2DMovement caller){
+        this.x_dir = x_dir;
+        this.y_dir = y_dir;
+        this.caller = caller;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void attack_player(){
+        foreach (Isometric2DMovement player in Isometric2DMovement.list_of_players){
+            break;
+        }
     }
 }
