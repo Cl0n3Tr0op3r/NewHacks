@@ -77,7 +77,7 @@ public class Isometric2DMovement : MonoBehaviour
                     
                 }                
             }
-            if(real_fires.Count!=0 && (Time.frameCount + (frameDelay-10)) % frameDelay == 0){
+            if(real_fires.Count!=0 && (Time.frameCount + (frameDelay+10)) % frameDelay == 0){
                 Destroy(real_fires.Dequeue().gameObject, 0f);
             }
             /*

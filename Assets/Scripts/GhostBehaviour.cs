@@ -58,32 +58,40 @@ public class GhostBehaviour : MonoBehaviour
                 if (Input.GetKeyDown("w")) 
                 {
                     move(1);
+                   
                 }
                 else if (Input.GetKeyDown("a")) 
                 {
                     move(2);
+                   
                 
                 }
                 else if (Input.GetKeyDown("s")) 
                 {
                     move(3);
+                    
                 }
                 else if (Input.GetKeyDown("d")) 
                 {
                     move(4);
+                   
                 
                 }
                 else if (Input.GetKeyDown("up")){
                     move(11);
+                    
                 }
                 else if (Input.GetKeyDown("left")){
                     move(12);
+                    
                 }
                 else if (Input.GetKeyDown("down")){
                     move(13);
+                    
                 }
                 else if (Input.GetKeyDown("right")){
                     move(14);
+                   
                 }
             }
             
@@ -120,7 +128,8 @@ public class GhostBehaviour : MonoBehaviour
         move(dir, this.transform, this.spriteRenderer);
     }
     void move(int dir, Transform target, SpriteRenderer spriteRenderer)
-    {
+    {   
+        updateRemainTurns(remTurns - 1);
         // dir    1 2 3 4
         // key    w a s d
         // dir    10 11 12 13
@@ -190,7 +199,7 @@ public class GhostBehaviour : MonoBehaviour
             fireBehaviour.y_pos = y_pos;
         }
         target.position = new Vector3( (float)(y_pos * 0.5 + x_pos * 0.5), (float)(y_pos * 0.25 - x_pos *0.25),0f);
-        updateRemainTurns(remTurns - 1);
+        
 
         // else if (dir == 11){
         //     Debug.Log("");
