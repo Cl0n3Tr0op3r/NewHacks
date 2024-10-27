@@ -46,6 +46,8 @@ public class Isometric2DMovement : MonoBehaviour
         map = GameObject.Find("Grid").GetComponent<TilemapMapGenerator>();
         list_of_players.AddLast(this);
         view = GetComponent<PhotonView>();
+      
+        
 
     }
 
@@ -58,6 +60,7 @@ public class Isometric2DMovement : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Return))
             {
                 isTimePaused=!isTimePaused;
+                ghost.gameObject.SetActive(false);
                 ghost.GetComponent<GhostBehaviour>().updateRemainTurns(6);
                 foreach (var fire in FireGhost.all_fires){
                     // print(fire);

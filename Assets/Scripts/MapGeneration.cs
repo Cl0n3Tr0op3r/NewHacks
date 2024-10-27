@@ -5,10 +5,10 @@ public class TilemapMapGenerator : MonoBehaviour
 {
     public Tilemap tilemap;  
     public TileBase tile;   
-    public int start_x = -10;   
-    public int end_x = 10;
-    public int start_y = -10;
-    public int end_y = 10;
+    public int start_x = -3;   
+    public int end_x = 3;
+    public int start_y = -7;
+    public int end_y = 7;
 
 
     void Start()

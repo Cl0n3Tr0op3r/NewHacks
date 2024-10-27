@@ -43,6 +43,11 @@ public class SpawnPlayers : MonoBehaviour
             GameObject player = PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(0f,0f), Quaternion.identity);
             player.GetComponent<Isometric2DMovement>().x_pos = x1;
             player.GetComponent<Isometric2DMovement>().y_pos = y1;
+            GameObject ghost = PhotonNetwork.Instantiate(ghostPrefab.name, new Vector2(0f,0f), Quaternion.identity);
+            ghost.GetComponent<GhostBehaviour>().x_pos = player.GetComponent<Isometric2DMovement>().x_pos;
+            ghost.GetComponent<GhostBehaviour>().y_pos = player.GetComponent<Isometric2DMovement>().y_pos;
+            ghost.SetActive(false);
+            
         }
         else
         {
@@ -54,16 +59,21 @@ public class SpawnPlayers : MonoBehaviour
             GameObject player = PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(0f,0f), Quaternion.identity);
             player.GetComponent<Isometric2DMovement>().x_pos = x2;
             player.GetComponent<Isometric2DMovement>().y_pos = y2;
+            GameObject ghost = PhotonNetwork.Instantiate(ghostPrefab.name, new Vector2(0f,0f), Quaternion.identity);
+            ghost.GetComponent<GhostBehaviour>().x_pos = player.GetComponent<Isometric2DMovement>().x_pos;
+            ghost.GetComponent<GhostBehaviour>().y_pos = player.GetComponent<Isometric2DMovement>().y_pos;
+            ghost.SetActive(false);
      
         }
 
         // Instantiate the chosen player prefab at the specified position
        
 
-        PhotonNetwork.Instantiate(firePrefab.name, new Vector2(0f,0f), Quaternion.identity);
-        PhotonNetwork.Instantiate(fireghostPrefab.name, new Vector2(0f,0f), Quaternion.identity);
-        PhotonNetwork.Instantiate(ghostPrefab.name, new Vector2(0f,0f), Quaternion.identity);
-      
+        GameObject fire = PhotonNetwork.Instantiate(firePrefab.name, new Vector2(0f,0f), Quaternion.identity);
+        fire.gameObject.SetActive(false);
+        GameObject ghostfire = PhotonNetwork.Instantiate(fireghostPrefab.name, new Vector2(0f,0f), Quaternion.identity);
+        ghostfire.gameObject.SetActive(false);
+        
        
     }   
 }
