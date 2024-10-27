@@ -8,6 +8,7 @@ public class FireGhost : MonoBehaviour
     public int y_pos;
     public static GameObject[] all_fires = new GameObject[6];
     public static int counter=0;
+    
 
 
 
