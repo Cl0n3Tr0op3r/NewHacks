@@ -454,6 +454,10 @@ MonoBehaviour:
   - {fileID: 1285801600, guid: fa56b0191a4d74659ba9ac39723d2862, type: 3}
   - {fileID: 15769483, guid: fa56b0191a4d74659ba9ac39723d2862, type: 3}
   - {fileID: 1947723988, guid: fa56b0191a4d74659ba9ac39723d2862, type: 3}
+  dead: 0
+  yourTurn: 0
+  remTurns: 0
+  ghost: {fileID: 1740192384}
   isTimePaused: 0
   pausedMoveIndicator: {fileID: 1740192384}
 --- !u!212 &1584361094
@@ -599,7 +603,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_Sprite: {fileID: -1493863708, guid: fa56b0191a4d74659ba9ac39723d2862, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.45490196}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

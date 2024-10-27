@@ -6,11 +6,17 @@ using Cinemachine;
 public class Isometric2DMovement : MonoBehaviour
 {
     [SerializeField] private CinemachineVirtualCamera vcam; 
-    [SerializeField] private int x_pos;
-    [SerializeField] private int y_pos;
+    public int x_pos;
+    public int y_pos;
     public SpriteRenderer spriteRenderer;
     [SerializeField] public Sprite[] spriteArray;
     TilemapMapGenerator map;
+    public bool dead;
+    public static bool gameOver;
+    public bool yourTurn;
+    public (int, int) startPos;
+    public int remTurns;
+    [SerializeField] private GameObject ghost;
 
     [SerializeField] public bool isTimePaused = false;
     public Queue<int> player_inputs = new Queue<int>();
@@ -22,6 +28,16 @@ public class Isometric2DMovement : MonoBehaviour
 
     void Start()
     {
+        yourTurn=true;
+        
+        //
+
+        startPos = (x_pos, y_pos);
+        isTimePaused = true;
+        remTurns=6; 
+
+        //
+
         transform.position=new Vector3(0f,0f,0f);
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         map = GameObject.Find("Grid").GetComponent<TilemapMapGenerator>();
@@ -52,6 +68,15 @@ public class Isometric2DMovement : MonoBehaviour
                 if (Input.GetKeyDown("a")) move(2);
                 if (Input.GetKeyDown("s")) move(3);
                 if (Input.GetKeyDown("d")) move(4);
+            }
+            else
+            {
+
+                if (Input.GetKeyDown(KeyCode.Escape)){
+                    remTurns=6;
+                    (x_pos, y_pos) = startPos;
+                } 
+
             }
         }
         else
