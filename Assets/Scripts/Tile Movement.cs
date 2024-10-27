@@ -59,7 +59,10 @@ public class Isometric2DMovement : MonoBehaviour
 
     void Update()
     {  
-        if (dead==true){
+        if (SyncedVar.player1lose && this==Isometric2DMovement.list_of_players[0]){
+            gameObject.SetActive(false);
+        }
+        elif (SyncedVar.player2lose && this==Isometric2DMovement.list_of_players[1]){
             gameObject.SetActive(false);
         }
         if (view.IsMine)
@@ -207,12 +210,20 @@ public class Isometric2DMovement : MonoBehaviour
             fire.SetActive(true);
             Isometric2DMovement[] list_of_players = Isometric2DMovement.list_of_players;
 
-            for (int i = 0 ; i<2 ; i++){
-                 if (list_of_players[i].x_pos == x_pos  && list_of_players[i].y_pos == y_pos + 1){
-                    list_of_players[i].dead=true;
-                    Isometric2DMovement.gameOver = true;
+            if (list_of_players[0].x_pos == x_pos+1  && list_of_players[0].y_pos == y_pos ){
+                list_of_players[0].dead=true;
+                Isometric2DMovement.gameOver = true;
+                SyncedVar.updateWinLoss(true, false);
                     // death or attack animation
-                }
+                
+               
+            }
+            else if (list_of_players[1].x_pos == x_pos+1  && list_of_players[1].y_pos == y_pos ){
+                list_of_players[0].dead=true;
+                Isometric2DMovement.gameOver = true;
+                SyncedVar.updateWinLoss(false, true);
+                    // death or attack animation
+                
                
             }
         }
@@ -227,12 +238,20 @@ public class Isometric2DMovement : MonoBehaviour
             
             fire.SetActive(true);
             Isometric2DMovement[] list_of_players = Isometric2DMovement.list_of_players;
-            for (int i = 0 ; i<2 ; i++){
-                 if (list_of_players[i].x_pos == x_pos-1  && list_of_players[i].y_pos == y_pos){
-                    list_of_players[i].dead=true;
-                    Isometric2DMovement.gameOver = true;
+            fif (list_of_players[0].x_pos == x_pos+1  && list_of_players[0].y_pos == y_pos ){
+                list_of_players[0].dead=true;
+                Isometric2DMovement.gameOver = true;
+                SyncedVar.updateWinLoss(true, false);
                     // death or attack animation
-                }
+                
+               
+            }
+            else if (list_of_players[1].x_pos == x_pos+1  && list_of_players[1].y_pos == y_pos ){
+                list_of_players[0].dead=true;
+                Isometric2DMovement.gameOver = true;
+                SyncedVar.updateWinLoss(false, true);
+                    // death or attack animation
+                
                
             }
         }
@@ -245,12 +264,20 @@ public class Isometric2DMovement : MonoBehaviour
             fireBehaviour.y_pos = y_pos-1;
             Isometric2DMovement[] list_of_players = Isometric2DMovement.list_of_players;
             fire.SetActive(true);
-            for (int i = 0 ; i<2 ; i++){
-                 if (list_of_players[i].x_pos == x_pos  && list_of_players[i].y_pos == y_pos - 1){
-                    list_of_players[i].dead=true;
-                    Isometric2DMovement.gameOver = true;
+            if (list_of_players[0].x_pos == x_pos+1  && list_of_players[0].y_pos == y_pos ){
+                list_of_players[0].dead=true;
+                Isometric2DMovement.gameOver = true;
+                SyncedVar.updateWinLoss(true, false);
                     // death or attack animation
-                }
+                
+               
+            }
+            else if (list_of_players[1].x_pos == x_pos+1  && list_of_players[1].y_pos == y_pos ){
+                list_of_players[0].dead=true;
+                Isometric2DMovement.gameOver = true;
+                SyncedVar.updateWinLoss(false, true);
+                    // death or attack animation
+                
                
             }
         }
@@ -263,12 +290,21 @@ public class Isometric2DMovement : MonoBehaviour
             fireBehaviour.y_pos = y_pos;
             Isometric2DMovement[] list_of_players = Isometric2DMovement.list_of_players;
             fire.SetActive(true);
-            for (int i = 0 ; i<2 ; i++){
-                 if (list_of_players[i].x_pos == x_pos+1  && list_of_players[i].y_pos == y_pos ){
-                    list_of_players[i].dead=true;
-                    Isometric2DMovement.gameOver = true;
+            
+            if (list_of_players[0].x_pos == x_pos+1  && list_of_players[0].y_pos == y_pos ){
+                list_of_players[0].dead=true;
+                Isometric2DMovement.gameOver = true;
+                SyncedVar.updateWinLoss(true, false);
                     // death or attack animation
-                }
+                
+               
+            }
+            else if (list_of_players[1].x_pos == x_pos+1  && list_of_players[1].y_pos == y_pos ){
+                list_of_players[0].dead=true;
+                Isometric2DMovement.gameOver = true;
+                SyncedVar.updateWinLoss(false, true);
+                    // death or attack animation
+                
                
             }
         }
