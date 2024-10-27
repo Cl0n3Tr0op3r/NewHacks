@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Cinemachine;
 using Photon.Pun;
+using UnityEngine.SceneManagement;
 
 public class Isometric2DMovement : MonoBehaviour
 {
