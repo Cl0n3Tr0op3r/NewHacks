@@ -14,6 +14,8 @@ public class Isometric2DMovement : MonoBehaviour
 
     [SerializeField] public bool isTimePaused = false;
     public Queue<int> player_inputs = new Queue<int>();
+    [SerializeField] public GameObject pausedMoveIndicator;
+
 
     public static LinkedList<Isometric2DMovement> list_of_players = new LinkedList<Isometric2DMovement>();
 
@@ -24,13 +26,14 @@ public class Isometric2DMovement : MonoBehaviour
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         map = GameObject.Find("Grid").GetComponent<TilemapMapGenerator>();
         list_of_players.AddLast(this);
+
     }
 
     void Update()
     {  
         if (!isTimePaused)
         {
-            vcam.Follow = GameObject.Find("player_character").transform;
+            vcam.Follow = GameObject.Find("player_characters").transform;
             if (player_inputs.Count != 0) {
                 while (player_inputs.Count!=0){
                     move(player_inputs.Dequeue());
@@ -46,20 +49,42 @@ public class Isometric2DMovement : MonoBehaviour
         }
         else
         {
-
-            vcam.Follow = GameObject.Find("player_character_ghost").transform;
-            if (Input.GetKeyDown("w")) player_inputs.Enqueue(1);
-            if (Input.GetKeyDown("a")) player_inputs.Enqueue(2);
-            if (Input.GetKeyDown("s")) player_inputs.Enqueue(3);
-            if (Input.GetKeyDown("d")) player_inputs.Enqueue(4);
+            vcam.Follow = GameObject.Find("player_characters_ghost").transform;
+            if (Input.GetKeyDown("w")) 
+            {
+                move(1, pausedMoveIndicator.transform, pausedMoveIndicator.GetComponent<SpriteRenderer>());
+                // pausedMoveIndicator.transform.position = new Vector3(1,1,0);
+                print(pausedMoveIndicator.transform.position);
+                player_inputs.Enqueue(1);
+            }
+            if (Input.GetKeyDown("a")) 
+            {
+                move(2, pausedMoveIndicator.transform, pausedMoveIndicator.GetComponent<SpriteRenderer>());
+                player_inputs.Enqueue(2);
+            }
+            if (Input.GetKeyDown("s")) 
+            {
+                move(3, pausedMoveIndicator.transform, pausedMoveIndicator.GetComponent<SpriteRenderer>());
+                player_inputs.Enqueue(3);
+            }
+            if (Input.GetKeyDown("d")) 
+            {
+                move(4, pausedMoveIndicator.transform, pausedMoveIndicator.GetComponent<SpriteRenderer>());
+                player_inputs.Enqueue(4);
+            }
         }
     }
 
-    void move(int dir) {
+    void move(int dir)
+    {
+        move(dir, this.transform, this.spriteRenderer);
+    }
+    void move(int dir, Transform target, SpriteRenderer spriteRenderer)
+    {
         // dir    1 2 3 4
         // key    w a s d
         
-        Vector3 pos = transform.position;
+        Vector3 pos = target.position;
         
         if (dir == 1){
             if((map.end_y)>=y_pos){
@@ -88,7 +113,7 @@ public class Isometric2DMovement : MonoBehaviour
             
         }
         
-        transform.position = new Vector3( (float)(y_pos * 0.5 + x_pos * 0.5), (float)(y_pos * 0.25 - x_pos *0.25),0f);
+        target.position = new Vector3( (float)(y_pos * 0.5 + x_pos * 0.5), (float)(y_pos * 0.25 - x_pos *0.25),0f);
 
     }
 }
