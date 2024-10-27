@@ -251,7 +251,7 @@ public class Isometric2DMovement : MonoBehaviour
                 list_of_players[0].dead=true;
                 Isometric2DMovement.gameOver = true;
                 gameOver=true;
-                SceneManager.LoadScene("win");
+                SceneManager.LoadScene("Winner");
                     // death or attack animation
                 
                
@@ -260,7 +260,7 @@ public class Isometric2DMovement : MonoBehaviour
                 list_of_players[1].dead=true;
                 Isometric2DMovement.gameOver = true;
                 gameOver=true;
-                SceneManager.LoadScene("win");
+                SceneManager.LoadScene("Winner");
                 
                
             }
@@ -279,7 +279,7 @@ public class Isometric2DMovement : MonoBehaviour
                 list_of_players[0].dead=true;
                 Isometric2DMovement.gameOver = true;
                 gameOver=true;
-                SceneManager.LoadScene("win");
+                SceneManager.LoadScene("Winner");
                     // death or attack animation
                 
                
@@ -288,7 +288,7 @@ public class Isometric2DMovement : MonoBehaviour
                 list_of_players[1].dead=true;
                 Isometric2DMovement.gameOver = true;
                 gameOver=true;
-                SceneManager.LoadScene("win");
+                SceneManager.LoadScene("Winner");
                 
                
             }
