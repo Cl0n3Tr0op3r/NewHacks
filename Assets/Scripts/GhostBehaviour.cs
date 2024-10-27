@@ -2,6 +2,8 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using Cinemachine;
+using TMPro;
+
 
 public class GhostBehaviour : MonoBehaviour
 {
@@ -19,6 +21,8 @@ public class GhostBehaviour : MonoBehaviour
     [SerializeField] public GameObject father_ghost;
     public Queue<int> player_inputs = new Queue<int>();
 
+    [SerializeField] public TMP_Text turnsDisplay;
+
 
     public static LinkedList<GhostBehaviour> list_of_players = new LinkedList<GhostBehaviour>();
 
@@ -30,7 +34,8 @@ public class GhostBehaviour : MonoBehaviour
         //
 
         startPos = (x_pos, y_pos);
-        remTurns=6; 
+        remTurns=6;
+        updateRemainTurns(remTurns);
 
         //
 
@@ -50,29 +55,25 @@ public class GhostBehaviour : MonoBehaviour
                 if (Input.GetKeyDown("w")) 
                 {
                     move(1);
-                    remTurns--;
                 }
                 else if (Input.GetKeyDown("a")) 
                 {
                     move(2);
-                    remTurns--;
                 
                 }
                 else if (Input.GetKeyDown("s")) 
                 {
                     move(3);
-                    remTurns--;
                 }
                 else if (Input.GetKeyDown("d")) 
                 {
                     move(4);
-                    remTurns--;
                 
                 }
             }
             
             if (Input.GetKeyDown(KeyCode.Escape)){
-                remTurns=6;
+                updateRemainTurns(6);
                 Isometric2DMovement parent = father_ghost.GetComponent<Isometric2DMovement>();
                 player_inputs.Clear();
                 x_pos = parent.x_pos;
@@ -118,24 +119,31 @@ public class GhostBehaviour : MonoBehaviour
                 x_pos+=1;
             }
             
-            spriteRenderer.sprite = spriteArray[0];
-            
+            spriteRenderer.sprite = spriteArray[0];   
         }
 
-        else if (dir == 11){
-            Debug.Log("");
-        }
-        else if (dir == 12){
-            Debug.Log("");
-        }
-        else if (dir == 13){
-           Debug.Log("");
-        }
-        else if (dir == 14){
-            Debug.Log("");
-        }
+        updateRemainTurns(remTurns - 1);
+
+        // else if (dir == 11){
+        //     Debug.Log("");
+        // }
+        // else if (dir == 12){
+        //     Debug.Log("");
+        // }
+        // else if (dir == 13){
+        //    Debug.Log("");
+        // }
+        // else if (dir == 14){
+        //     Debug.Log("");
+        // }
         
         target.position = new Vector3( (float)(y_pos * 0.5 + x_pos * 0.5), (float)(y_pos * 0.25 - x_pos *0.25),0f);
 
+    }
+
+    void updateRemainTurns(int left) 
+    {
+        this.remTurns = left;
+        turnsDisplay.text = "Moves: " + left.ToString();
     }
 }
