@@ -655,7 +655,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1508572152
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -889,8 +889,8 @@ MonoBehaviour:
   player2_ghost_Prefab: {fileID: 5330635824354000123, guid: 87ca53e383f241049ae7ff8a3c934948, type: 3}
   x1: 0
   y1: 0
-  x2: 0
-  y2: 0
+  x2: 3
+  y2: 3
 --- !u!4 &2021387890
 Transform:
   m_ObjectHideFlags: 0
