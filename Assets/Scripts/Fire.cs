@@ -20,7 +20,7 @@ public class Fire : MonoBehaviour
     void Update()
     {
         transform.position=new Vector3( (float)(y_pos * 0.5 + x_pos * 0.5), (float)(y_pos * 0.25 - x_pos *0.25) -0.4f,0f);
-
+        
         
     }
 }

@@ -779,6 +779,7 @@ MonoBehaviour:
   dead: 0
   yourTurn: 0
   remTurns: 0
+  father_ghost: {fileID: 1584361092}
 --- !u!1 &1970809429
 GameObject:
   m_ObjectHideFlags: 0
