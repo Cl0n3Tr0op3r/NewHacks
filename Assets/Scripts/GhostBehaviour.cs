@@ -54,7 +54,7 @@ public class GhostBehaviour : MonoBehaviour
         if (isTimePaused)
         {   
 
-            if (remTurns >= 0){
+            if (remTurns > 0){
                 if (Input.GetKeyDown("w")) 
                 {
                     move(1);
@@ -164,39 +164,39 @@ public class GhostBehaviour : MonoBehaviour
 
         else if (dir == 11){
             GameObject fire = GameObject.Instantiate(fire_ghost) as GameObject;
-            fire.SetActive(true);
+            FireGhost fireBehaviour = fire.GetComponent<FireGhost>(); 
             FireGhost.all_fires[FireGhost.counter]=fire;
             FireGhost.counter++;
-            FireGhost fireBehaviour = fire.GetComponent<FireGhost>(); 
             fireBehaviour.x_pos = x_pos;
             fireBehaviour.y_pos = y_pos+1;
+            fire.SetActive(true);
         }
         else if (dir == 12){
             GameObject fire = GameObject.Instantiate(fire_ghost) as GameObject;
             FireGhost fireBehaviour = fire.GetComponent<FireGhost>(); 
-            fire.SetActive(true);
             FireGhost.all_fires[FireGhost.counter]=fire;
             FireGhost.counter++;
             fireBehaviour.x_pos = x_pos - 1;
             fireBehaviour.y_pos = y_pos;
+            fire.SetActive(true);
         }
         else if (dir == 13){
             GameObject fire = GameObject.Instantiate(fire_ghost) as GameObject;
             FireGhost fireBehaviour = fire.GetComponent<FireGhost>(); 
-            fire.SetActive(true);
             FireGhost.all_fires[FireGhost.counter]=fire;
             FireGhost.counter++;
             fireBehaviour.x_pos = x_pos;
             fireBehaviour.y_pos = y_pos -1;
+            fire.SetActive(true);
         }
         else if (dir == 14){
             GameObject fire = GameObject.Instantiate(fire_ghost) as GameObject;
-            fire.SetActive(true);
+            FireGhost fireBehaviour = fire.GetComponent<FireGhost>(); 
             FireGhost.all_fires[FireGhost.counter]=fire;
             FireGhost.counter++;
-            FireGhost fireBehaviour = fire.GetComponent<FireGhost>(); 
             fireBehaviour.x_pos = x_pos +1;
             fireBehaviour.y_pos = y_pos;
+            fire.SetActive(true);
         }
         target.position = new Vector3( (float)(y_pos * 0.5 + x_pos * 0.5), (float)(y_pos * 0.25 - x_pos *0.25),0f);
         

@@ -20,7 +20,7 @@ public class Isometric2DMovement : MonoBehaviour
     [SerializeField] public GameObject ghost;
     [SerializeField] public GameObject fire_prefab;
     public Queue<GameObject> real_fires = new Queue<GameObject>();
-    public int frameDelay = 300;
+    public int frameDelay = 50;
 
 
     public static LinkedList<Isometric2DMovement> list_of_players = new LinkedList<Isometric2DMovement>();
@@ -51,12 +51,13 @@ public class Isometric2DMovement : MonoBehaviour
             isTimePaused=!isTimePaused;
             ghost.GetComponent<GhostBehaviour>().updateRemainTurns(6);
             foreach (var fire in FireGhost.all_fires){
-                    if (fire!=null){
-                        Destroy(fire.gameObject, 0f);
-                        
-                    }
+                // print(fire);
+                if (fire!=null){
+                    Destroy(fire.gameObject, 0f);
+                    
                 }
-                FireGhost.counter=0;
+            }
+            FireGhost.counter=0;
            
             
            
@@ -68,6 +69,8 @@ public class Isometric2DMovement : MonoBehaviour
             ghost.GetComponent<GhostBehaviour>().x_pos = x_pos;
             ghost.GetComponent<GhostBehaviour>().y_pos = y_pos;
             ghost.transform.position = this.transform.position;
+
+            // print(real_fires.Count);
             if (player_inputs.Count != 0) {
                 
                 if(player_inputs.Count != 0 && Time.frameCount % frameDelay == 0){
@@ -75,10 +78,10 @@ public class Isometric2DMovement : MonoBehaviour
                     ghost.SetActive(false);
                     move(player_inputs.Dequeue());
                     
-                }                
+                }
             }
-            if(real_fires.Count!=0 && (Time.frameCount + (frameDelay+10)) % frameDelay == 0){
-                Destroy(real_fires.Dequeue().gameObject, 0f);
+            if(real_fires.Count != 0){
+                Destroy(real_fires.Dequeue().gameObject, 4f);
             }
             /*
             else
@@ -96,6 +99,11 @@ public class Isometric2DMovement : MonoBehaviour
         {
             if(real_fires.Count!=0 && Time.frameCount % frameDelay == 0){
                 Destroy(real_fires.Dequeue().gameObject, 0f);
+            }
+            
+            if (ghost.GetComponent<GhostBehaviour>().remTurns <= 0)
+            {
+                return;
             }
             
             ghost.SetActive(true);
@@ -132,7 +140,7 @@ public class Isometric2DMovement : MonoBehaviour
             else if (Input.GetKeyDown("down")){
                player_inputs.Enqueue(13);
             }
-            else if (Input.GetKeyDown("down")){
+            else if (Input.GetKeyDown("right")){
                 player_inputs.Enqueue(14);
             }
         }
@@ -179,13 +187,14 @@ public class Isometric2DMovement : MonoBehaviour
 
         else if (dir == 11){
             GameObject fire = GameObject.Instantiate(fire_prefab) as GameObject;
+            real_fires.Enqueue(fire);
 
             Fire fireBehaviour = fire.GetComponent<Fire>(); 
-            
             fireBehaviour.x_pos = x_pos;
             fireBehaviour.y_pos = y_pos+1;
+            
             fire.SetActive(true);
-            real_fires.Enqueue(fire);
+
             foreach (Isometric2DMovement player in list_of_players){
                 if (player.x_pos == x_pos && player.y_pos == y_pos + 1){
                     player.dead=true;
@@ -197,12 +206,13 @@ public class Isometric2DMovement : MonoBehaviour
         else if (dir == 12){
 
             GameObject fire = GameObject.Instantiate(fire_prefab) as GameObject;
-            fire.SetActive(true);
+            real_fires.Enqueue(fire);
             
             Fire fireBehaviour=fire.GetComponent<Fire>();
             fireBehaviour.x_pos = x_pos-1;
             fireBehaviour.y_pos = y_pos;
-            real_fires.Enqueue(fire);
+            
+            fire.SetActive(true);
 
             foreach (Isometric2DMovement player in list_of_players){
                 if (player.x_pos == x_pos -1 && player.y_pos == y_pos){
@@ -214,12 +224,13 @@ public class Isometric2DMovement : MonoBehaviour
         }
         else if (dir == 13){
             GameObject fire = GameObject.Instantiate(fire_prefab) as GameObject;
-            fire.SetActive(true);
+            real_fires.Enqueue(fire);
 
             Fire fireBehaviour=fire.GetComponent<Fire>();
             fireBehaviour.x_pos = x_pos;
             fireBehaviour.y_pos = y_pos-1;
-            real_fires.Enqueue(fire);
+            
+            fire.SetActive(true);
             foreach (Isometric2DMovement player in list_of_players){
                 if (player.x_pos == x_pos  && player.y_pos == y_pos - 1){
                     player.dead=true;
@@ -230,11 +241,13 @@ public class Isometric2DMovement : MonoBehaviour
         }
         else if (dir == 14){
             GameObject fire = GameObject.Instantiate(fire_prefab) as GameObject;
-            fire.SetActive(true);
             real_fires.Enqueue(fire);
+            
             Fire fireBehaviour=fire.GetComponent<Fire>();
             fireBehaviour.x_pos = x_pos+1;
             fireBehaviour.y_pos = y_pos;
+            
+            fire.SetActive(true);
             foreach (Isometric2DMovement player in list_of_players){
                 if (player.x_pos == x_pos + 1 && player.y_pos == y_pos){
                     player.dead=true;
