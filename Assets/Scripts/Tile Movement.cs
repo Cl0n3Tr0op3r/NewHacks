@@ -20,7 +20,7 @@ public class Isometric2DMovement : MonoBehaviour
     [SerializeField] public bool isTimePaused = false;
     public Queue<int> player_inputs = new Queue<int>();
     [SerializeField] public GameObject ghost;
-    [SerializeField] public GameObject fire_prefab;
+    [SerializeField] public GameObject firePrefab;
     public Queue<GameObject> real_fires = new Queue<GameObject>();
     public int frameDelay = 1;
 
@@ -39,7 +39,7 @@ public class Isometric2DMovement : MonoBehaviour
         isTimePaused = true;
 
 
-        //
+        
 
         transform.position=new Vector3(0f,0f,0f);
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
@@ -55,7 +55,7 @@ public class Isometric2DMovement : MonoBehaviour
     {  
         if (view.IsMine)
         {
-             transform.position = new Vector3( (float)(y_pos * 0.5 + x_pos * 0.5), (float)(y_pos * 0.25 - x_pos *0.25),0f );
+            transform.position = new Vector3( (float)(y_pos * 0.5 + x_pos * 0.5), (float)(y_pos * 0.25 - x_pos *0.25),0f );
 
             if (Input.GetKeyDown(KeyCode.Return))
             {
@@ -74,17 +74,15 @@ public class Isometric2DMovement : MonoBehaviour
             }
             if (!isTimePaused)
             {
+
                 vcam.Follow = gameObject.transform;
                 ghost.GetComponent<GhostBehaviour>().x_pos = x_pos;
                 ghost.GetComponent<GhostBehaviour>().y_pos = y_pos;
                 ghost.transform.position = this.transform.position;
 
-                // print(real_fires.Count);
                 if (player_inputs.Count != 0) {
                     
                     if(player_inputs.Count != 0 && Time.frameCount % 30 == 0){
-                        
-                        ghost.SetActive(false);
                         
                         move(player_inputs.Dequeue());
                         
@@ -108,7 +106,7 @@ public class Isometric2DMovement : MonoBehaviour
                 
 
                 ghost.SetActive(true);
-                vcam.Follow = GameObject.Find("player_characters_ghost").transform;
+                vcam.Follow = ghost.transform;
                 
                 SpriteRenderer pauseMoveIndicatorSprite = ghost.GetComponent<SpriteRenderer>();
 
@@ -189,10 +187,11 @@ public class Isometric2DMovement : MonoBehaviour
         }
 
         else if (dir == 11){
-            GameObject fire = GameObject.Instantiate(fire_prefab) as GameObject;
-            real_fires.Enqueue(fire);
+
+            GameObject fire = PhotonNetwork.Instantiate(firePrefab.name, new Vector2(0f, 0f), Quaternion.identity) as GameObject;
 
             Fire fireBehaviour = fire.GetComponent<Fire>(); 
+            real_fires.Enqueue(fire);
             fireBehaviour.x_pos = x_pos;
             fireBehaviour.y_pos = y_pos+1;
             
@@ -208,10 +207,11 @@ public class Isometric2DMovement : MonoBehaviour
         }
         else if (dir == 12){
 
-            GameObject fire = GameObject.Instantiate(fire_prefab) as GameObject;
+            GameObject fire = PhotonNetwork.Instantiate(firePrefab.name, new Vector2(0f, 0f), Quaternion.identity) as GameObject;
+
+            Fire fireBehaviour = fire.gameObject.GetComponent<Fire>();
             real_fires.Enqueue(fire);
-            
-            Fire fireBehaviour=fire.GetComponent<Fire>();
+            Debug.Log(fireBehaviour);
             fireBehaviour.x_pos = x_pos-1;
             fireBehaviour.y_pos = y_pos;
             
@@ -226,10 +226,11 @@ public class Isometric2DMovement : MonoBehaviour
             }
         }
         else if (dir == 13){
-            GameObject fire = GameObject.Instantiate(fire_prefab) as GameObject;
-            real_fires.Enqueue(fire);
+
+            GameObject fire = PhotonNetwork.Instantiate(firePrefab.name, new Vector2(0f, 0f), Quaternion.identity) as GameObject;
 
             Fire fireBehaviour=fire.GetComponent<Fire>();
+            real_fires.Enqueue(fire);
             fireBehaviour.x_pos = x_pos;
             fireBehaviour.y_pos = y_pos-1;
             
@@ -243,10 +244,11 @@ public class Isometric2DMovement : MonoBehaviour
             }
         }
         else if (dir == 14){
-            GameObject fire = GameObject.Instantiate(fire_prefab) as GameObject;
-            real_fires.Enqueue(fire);
-            
+
+            GameObject fire = PhotonNetwork.Instantiate(firePrefab.name, new Vector2(0f, 0f), Quaternion.identity) as GameObject;
+   
             Fire fireBehaviour=fire.GetComponent<Fire>();
+            real_fires.Enqueue(fire);
             fireBehaviour.x_pos = x_pos+1;
             fireBehaviour.y_pos = y_pos;
             

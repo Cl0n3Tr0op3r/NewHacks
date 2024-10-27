@@ -11,7 +11,6 @@ public class FireGhost : MonoBehaviour
     
 
     void Start(){
-        this.gameObject.SetActive(false);
         
     }
 

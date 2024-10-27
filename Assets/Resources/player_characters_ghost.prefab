@@ -108,10 +108,9 @@ MonoBehaviour:
   - {fileID: 15769483, guid: fa56b0191a4d74659ba9ac39723d2862, type: 3}
   - {fileID: 1947723988, guid: fa56b0191a4d74659ba9ac39723d2862, type: 3}
   dead: 0
-  yourTurn: 0
   remTurns: 0
   father_ghost: {fileID: 5482041090528855058, guid: d6b4877941ec1d045b2649a0ab66154c, type: 3}
-  fire_ghost: {fileID: 9169048405724566485, guid: 185f192ddbd107e42a4a0cf1ce977e9f, type: 3}
+  fire_ghost: {fileID: 6716314212444825954, guid: 273ca170f2f6e4e3f8c24c2d513bd76e, type: 3}
   turnsDisplay: {fileID: 1522672925609442239, guid: aaaeb3a379090ce4ea8c3ebab2ac42a4, type: 3}
 --- !u!114 &-4820257000103261254
 MonoBehaviour:

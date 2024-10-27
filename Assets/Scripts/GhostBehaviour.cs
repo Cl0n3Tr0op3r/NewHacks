@@ -48,7 +48,7 @@ public class GhostBehaviour : MonoBehaviour
         list_of_players.AddLast(this);
         view = GetComponent <PhotonView>();
 
-        this.gameObject.SetActive(false);
+
     }
 
     void Update()
@@ -182,7 +182,8 @@ public class GhostBehaviour : MonoBehaviour
         }
 
         else if (dir == 11){
-            GameObject fire = GameObject.Instantiate(fire_ghost) as GameObject;
+            GameObject fire = Instantiate(fire_ghost, new Vector2(0f, 0f), Quaternion.identity) as GameObject;
+
             FireGhost fireBehaviour = fire.GetComponent<FireGhost>(); 
             FireGhost.all_fires[FireGhost.counter]=fire;
             FireGhost.counter++;
@@ -191,7 +192,8 @@ public class GhostBehaviour : MonoBehaviour
             fire.SetActive(true);
         }
         else if (dir == 12){
-            GameObject fire = GameObject.Instantiate(fire_ghost) as GameObject;
+            GameObject fire = Instantiate(fire_ghost, new Vector2(0f, 0f), Quaternion.identity) as GameObject;
+
             FireGhost fireBehaviour = fire.GetComponent<FireGhost>(); 
             FireGhost.all_fires[FireGhost.counter]=fire;
             FireGhost.counter++;
@@ -200,7 +202,8 @@ public class GhostBehaviour : MonoBehaviour
             fire.SetActive(true);
         }
         else if (dir == 13){
-            GameObject fire = GameObject.Instantiate(fire_ghost) as GameObject;
+            GameObject fire = Instantiate(fire_ghost, new Vector2(0f, 0f), Quaternion.identity) as GameObject;
+
             FireGhost fireBehaviour = fire.GetComponent<FireGhost>(); 
             FireGhost.all_fires[FireGhost.counter]=fire;
             FireGhost.counter++;
@@ -209,7 +212,8 @@ public class GhostBehaviour : MonoBehaviour
             fire.SetActive(true);
         }
         else if (dir == 14){
-            GameObject fire = GameObject.Instantiate(fire_ghost) as GameObject;
+            GameObject fire = Instantiate(fire_ghost, new Vector2(0f, 0f), Quaternion.identity) as GameObject;
+
             FireGhost fireBehaviour = fire.GetComponent<FireGhost>(); 
             FireGhost.all_fires[FireGhost.counter]=fire;
             FireGhost.counter++;
