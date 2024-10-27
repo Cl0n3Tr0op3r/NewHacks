@@ -2,6 +2,8 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using Cinemachine;
+using TMPro;
+
 
 public class GhostBehaviour : MonoBehaviour
 {
@@ -18,6 +20,9 @@ public class GhostBehaviour : MonoBehaviour
     public int remTurns;
     [SerializeField] public GameObject father_ghost;
     public Queue<int> player_inputs = new Queue<int>();
+    [SerializeField] public GameObject fire_ghost;
+
+    [SerializeField] public TMP_Text turnsDisplay;
 
 
     public static LinkedList<GhostBehaviour> list_of_players = new LinkedList<GhostBehaviour>();
@@ -30,7 +35,8 @@ public class GhostBehaviour : MonoBehaviour
         //
 
         startPos = (x_pos, y_pos);
-        remTurns=6; 
+        remTurns=6;
+        updateRemainTurns(remTurns);
 
         //
 
@@ -50,34 +56,52 @@ public class GhostBehaviour : MonoBehaviour
                 if (Input.GetKeyDown("w")) 
                 {
                     move(1);
-                    remTurns--;
                 }
                 else if (Input.GetKeyDown("a")) 
                 {
                     move(2);
-                    remTurns--;
                 
                 }
                 else if (Input.GetKeyDown("s")) 
                 {
                     move(3);
-                    remTurns--;
                 }
                 else if (Input.GetKeyDown("d")) 
                 {
                     move(4);
-                    remTurns--;
                 
+                }
+                else if (Input.GetKeyDown("up")){
+                    move(11);
+                    remTurns--;
+                }
+                else if (Input.GetKeyDown("left")){
+                    move(12);
+                    remTurns--;
+                }
+                else if (Input.GetKeyDown("down")){
+                    move(13);
+                    remTurns--;
+                }
+                else if (Input.GetKeyDown("right")){
+                    move(14);
+                    remTurns--;
                 }
             }
             
             if (Input.GetKeyDown(KeyCode.Escape)){
-                remTurns=6;
+                updateRemainTurns(6);
                 Isometric2DMovement parent = father_ghost.GetComponent<Isometric2DMovement>();
                 player_inputs.Clear();
                 x_pos = parent.x_pos;
                 y_pos = parent.y_pos;
                 transform.position = parent.transform.position;
+                foreach (var fire in FireGhost.all_fires){
+                    if (fire!=null){
+                        Destroy(fire.gameObject);
+                    }
+                }
+                FireGhost.counter=0;
 
             }
         }
@@ -118,24 +142,67 @@ public class GhostBehaviour : MonoBehaviour
                 x_pos+=1;
             }
             
-            spriteRenderer.sprite = spriteArray[0];
-            
+            spriteRenderer.sprite = spriteArray[0];   
         }
 
         else if (dir == 11){
-            Debug.Log("");
+            GameObject fire = GameObject.Instantiate(fire_ghost) as GameObject;
+            fire.SetActive(true);
+            FireGhost.all_fires[FireGhost.counter]=fire;
+            FireGhost.counter++;
+            FireGhost fireBehaviour = fire.GetComponent<FireGhost>(); 
+            fireBehaviour.x_pos = x_pos;
+            fireBehaviour.y_pos = y_pos+1;
         }
         else if (dir == 12){
-            Debug.Log("");
+            GameObject fire = GameObject.Instantiate(fire_ghost) as GameObject;
+            FireGhost fireBehaviour = fire.GetComponent<FireGhost>(); 
+            fire.SetActive(true);
+            FireGhost.all_fires[FireGhost.counter]=fire;
+            FireGhost.counter++;
+            fireBehaviour.x_pos = x_pos - 1;
+            fireBehaviour.y_pos = y_pos;
         }
         else if (dir == 13){
-           Debug.Log("");
+            GameObject fire = GameObject.Instantiate(fire_ghost) as GameObject;
+            FireGhost fireBehaviour = fire.GetComponent<FireGhost>(); 
+            fire.SetActive(true);
+            FireGhost.all_fires[FireGhost.counter]=fire;
+            FireGhost.counter++;
+            fireBehaviour.x_pos = x_pos;
+            fireBehaviour.y_pos = y_pos -1;
         }
         else if (dir == 14){
-            Debug.Log("");
+            GameObject fire = GameObject.Instantiate(fire_ghost) as GameObject;
+            fire.SetActive(true);
+            FireGhost.all_fires[FireGhost.counter]=fire;
+            FireGhost.counter++;
+            FireGhost fireBehaviour = fire.GetComponent<FireGhost>(); 
+            fireBehaviour.x_pos = x_pos +1;
+            fireBehaviour.y_pos = y_pos;
         }
+        updateRemainTurns(remTurns - 1);
+
+        // else if (dir == 11){
+        //     Debug.Log("");
+        // }
+        // else if (dir == 12){
+        //     Debug.Log("");
+        // }
+        // else if (dir == 13){
+        //    Debug.Log("");
+        // }
+        // else if (dir == 14){
+        //     Debug.Log("");
+        // }
         
         target.position = new Vector3( (float)(y_pos * 0.5 + x_pos * 0.5), (float)(y_pos * 0.25 - x_pos *0.25),0f);
 
+    }
+
+    void updateRemainTurns(int left) 
+    {
+        this.remTurns = left;
+        turnsDisplay.text = "Moves: " + left.ToString();
     }
 }

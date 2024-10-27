@@ -59,12 +59,7 @@ public class Isometric2DMovement : MonoBehaviour
                     
                     move(asd);
                     
-                }
-                
-                
-
-                
-                
+                }                
             }
             /*
             else
@@ -93,7 +88,6 @@ public class Isometric2DMovement : MonoBehaviour
             }
             else if (Input.GetKeyDown("a")) 
             {
-               
                 player_inputs.Enqueue(2);
             }
             else if (Input.GetKeyDown("s")) 
@@ -105,6 +99,19 @@ public class Isometric2DMovement : MonoBehaviour
             {
                 
                 player_inputs.Enqueue(4);
+            }
+            else if (Input.GetKeyDown("up")){
+                player_inputs.Enqueue(11);
+                
+            }
+            else if (Input.GetKeyDown("left")){
+               player_inputs.Enqueue(12);
+            }
+            else if (Input.GetKeyDown("down")){
+               player_inputs.Enqueue(13);
+            }
+            else if (Input.GetKeyDown("down")){
+                player_inputs.Enqueue(14);
             }
         }
     }
@@ -158,6 +165,7 @@ public class Isometric2DMovement : MonoBehaviour
             }
         }
         else if (dir == 12){
+            
             foreach (Isometric2DMovement player in list_of_players){
                 if (player.x_pos == x_pos -1 && player.y_pos == y_pos){
                     player.dead=true;
