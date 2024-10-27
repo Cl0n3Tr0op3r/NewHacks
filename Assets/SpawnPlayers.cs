@@ -36,6 +36,9 @@ public class SpawnPlayers : MonoBehaviour
         
         Vector2 spawnPosition;
 
+        int x_pos;
+        int y_pos;
+
         // Check if the player is the first one or the second one to join
         if (PhotonNetwork.PlayerList.Length == 1)
         {
@@ -45,6 +48,8 @@ public class SpawnPlayers : MonoBehaviour
             fireghostPrefab = player1_fireghost_Prefab;
             ghostPrefab = player1_ghost_Prefab;
             spawnPosition = new Vector2(x1, y1);
+            x_pos = 1;
+            y_pos = 2;
         }
         else
         {
@@ -55,14 +60,22 @@ public class SpawnPlayers : MonoBehaviour
             ghostPrefab = player2_ghost_Prefab;
 
             spawnPosition = new Vector2(x2, y2);
+            x_pos = 2;
+            y_pos = 3;
         }
 
+        
         // Instantiate the chosen player prefab at the specified position
-        PhotonNetwork.Instantiate(playerPrefab.name, spawnPosition, Quaternion.identity);
-        PhotonNetwork.Instantiate(firePrefab.name, spawnPosition, Quaternion.identity);
-        PhotonNetwork.Instantiate(fireghostPrefab.name, spawnPosition, Quaternion.identity);
-        PhotonNetwork.Instantiate(ghostPrefab.name, spawnPosition, Quaternion.identity);
+        GameObject instantiatedPlayer = PhotonNetwork.Instantiate(playerPrefab.name, spawnPosition, Quaternion.identity);
+        GameObject instantiatedFire = PhotonNetwork.Instantiate(firePrefab.name, spawnPosition, Quaternion.identity);
+        GameObject instantiatedGhostFire = PhotonNetwork.Instantiate(fireghostPrefab.name, spawnPosition, Quaternion.identity);
+        GameObject instantiateGhost = PhotonNetwork.Instantiate(ghostPrefab.name, spawnPosition, Quaternion.identity);
       
-       
+        instantiatedPlayer.transform.position = new Vector3( (float)(y_pos * 0.5 + x_pos * 0.5), (float)(y_pos * 0.25 - x_pos *0.25),0f );
+
+
+        instantiatedFire.SetActive(false);
+        instantiatedGhostFire.SetActive(false);
+        instantiateGhost.SetActive(false);
     }   
 }

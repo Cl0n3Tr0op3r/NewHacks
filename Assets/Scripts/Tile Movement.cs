@@ -77,7 +77,7 @@ public class Isometric2DMovement : MonoBehaviour
                 // print(real_fires.Count);
                 if (player_inputs.Count != 0) {
                     
-                    if(player_inputs.Count != 0 && Time.frameCount % frameDelay == 0){
+                    if(player_inputs.Count != 0 && Time.frameCount % 30 == 0){
                         
                         ghost.SetActive(false);
                         move(player_inputs.Dequeue());
@@ -91,7 +91,7 @@ public class Isometric2DMovement : MonoBehaviour
             }
             else
             {
-                if(real_fires.Count!=0 && Time.frameCount % frameDelay == 0){
+                if(real_fires.Count!=0 && Time.frameCount % 30 == 0){
                     Destroy(real_fires.Dequeue().gameObject, 0f);
                 }
                 
