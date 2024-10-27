@@ -62,9 +62,7 @@ public class Isometric2DMovement : MonoBehaviour
     void Update()
     {  
         if (SyncedVar.player1lose==true && this==Isometric2DMovement.list_of_players[0] ||
-        SyncedVar.player2lose==true && 
-        this==Isometric2DMovement.
-list_of_players[1]){
+        SyncedVar.player2lose==true && this==Isometric2DMovement.list_of_players[1]){
             gameObject.SetActive(false);
 
         }
@@ -176,7 +174,16 @@ list_of_players[1]){
         // dir    10 11 12 13
         // attack 
         
-        
+        if (gameOver==true){
+            if(list_of_players[0].dead){
+                Debug.Log("Player 2 wins");
+            }
+            else{
+                Debug.Log("Player 1 wins");
+            }
+        }
+
+
         if (dir == 1){
             if((map.end_y)>=y_pos){
                 y_pos+=1;
@@ -245,7 +252,7 @@ list_of_players[1]){
             if (list_of_players[0].x_pos == x_pos+1  && list_of_players[0].y_pos == y_pos ){
                 list_of_players[0].dead=true;
                 Isometric2DMovement.gameOver = true;
-                SyncedVar.updateWinLoss(true, false);
+                gameOver=true;
                     // death or attack animation
                 
                
@@ -253,8 +260,7 @@ list_of_players[1]){
             else if (list_of_players[1].x_pos == x_pos+1  && list_of_players[1].y_pos == y_pos ){
                 list_of_players[0].dead=true;
                 Isometric2DMovement.gameOver = true;
-                SyncedVar.updateWinLoss(false, true);
-                    // death or attack animation
+                gameOver=true;
                 
                
             }
@@ -271,7 +277,7 @@ list_of_players[1]){
             if (list_of_players[0].x_pos == x_pos+1  && list_of_players[0].y_pos == y_pos ){
                 list_of_players[0].dead=true;
                 Isometric2DMovement.gameOver = true;
-                SyncedVar.updateWinLoss(true, false);
+                gameOver=true;
                     // death or attack animation
                 
                
@@ -279,8 +285,7 @@ list_of_players[1]){
             else if (list_of_players[1].x_pos == x_pos+1  && list_of_players[1].y_pos == y_pos ){
                 list_of_players[0].dead=true;
                 Isometric2DMovement.gameOver = true;
-                SyncedVar.updateWinLoss(false, true);
-                    // death or attack animation
+                gameOver=true;
                 
                
             }

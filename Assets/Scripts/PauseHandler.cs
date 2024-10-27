@@ -8,8 +8,8 @@ public class PauseHandler : MonoBehaviour
 
     public void revertTime(){
         Isometric2DMovement[] players =  Isometric2DMovement.list_of_players;
-        if (players[0]== true && players[1]==true){
-            isTimePaused=true;
+        if (players[0]== false && players[1]==false){
+            isTimePaused=false;
         }
     }
 }
