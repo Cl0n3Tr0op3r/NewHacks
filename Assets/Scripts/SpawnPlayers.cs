@@ -52,14 +52,14 @@ public class SpawnPlayers : MonoBehaviour
 
         // Instantiate the player
         GameObject player = PhotonNetwork.Instantiate(playerPrefab.name, new Vector2(0f, 0f), Quaternion.identity);
-        // player.GetComponent<Isometric2DMovement>().x_pos = x2;
-        // player.GetComponent<Isometric2DMovement>().y_pos = y2;
+        player.GetComponent<Isometric2DMovement>().x_pos = x2;
+        player.GetComponent<Isometric2DMovement>().y_pos = y2;
         
 
         // Instantiate the ghost and set it inactive
         GameObject ghost = PhotonNetwork.Instantiate(ghostPrefab.name, new Vector2(10f, 10f), Quaternion.identity);
-        // ghost.GetComponent<GhostBehaviour>().x_pos = player.GetComponent<Isometric2DMovement>().x_pos;
-        // ghost.GetComponent<GhostBehaviour>().y_pos = player.GetComponent<Isometric2DMovement>().y_pos;
+        ghost.GetComponent<GhostBehaviour>().x_pos = player.GetComponent<Isometric2DMovement>().x_pos;
+        ghost.GetComponent<GhostBehaviour>().y_pos = player.GetComponent<Isometric2DMovement>().y_pos;
         ghost.SetActive(false);
     }
 }

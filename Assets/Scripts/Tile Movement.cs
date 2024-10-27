@@ -102,7 +102,7 @@ public class Isometric2DMovement : MonoBehaviour
                     }
                 }
                 if(real_fires.Count != 0){
-                    Destroy(real_fires.Dequeue().gameObject, 4f);
+                    Destroy(real_fires.Dequeue().gameObject, 0.8f);
                 }
 
             }
