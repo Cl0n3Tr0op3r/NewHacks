@@ -8,6 +8,8 @@ public class Isometric2DMovement : MonoBehaviour
 {
     [SerializeField] private CinemachineVirtualCamera vcam; 
     public int x_pos;
+
+    private SyncedVar syncedVar;
     public int y_pos;
     public SpriteRenderer spriteRenderer;
     [SerializeField] public Sprite[] spriteArray;
@@ -30,6 +32,7 @@ public class Isometric2DMovement : MonoBehaviour
     void Start()
     {
 
+        syncedVar=GameObject.Find("SyncedVar").GetComponent<SyncedVar>();
         Debug.developerConsoleVisible=true;
         
         //
@@ -59,12 +62,15 @@ public class Isometric2DMovement : MonoBehaviour
 
     void Update()
     {  
-        if (SyncedVar.player1lose && this==Isometric2DMovement.list_of_players[0]){
+        if (SyncedVar.player1lose==true && this==Isometric2DMovement.list_of_players[0] ||
+        SyncedVar.player2lose==true && 
+        this==Isometric2DMovement.
+list_of_players[1]){
             gameObject.SetActive(false);
+
         }
-        elif (SyncedVar.player2lose && this==Isometric2DMovement.list_of_players[1]){
-            gameObject.SetActive(false);
-        }
+
+
         if (view.IsMine)
         {
              transform.position = new Vector3( (float)(y_pos * 0.5 + x_pos * 0.5), (float)(y_pos * 0.25 - x_pos *0.25),0f );
@@ -238,7 +244,7 @@ public class Isometric2DMovement : MonoBehaviour
             
             fire.SetActive(true);
             Isometric2DMovement[] list_of_players = Isometric2DMovement.list_of_players;
-            fif (list_of_players[0].x_pos == x_pos+1  && list_of_players[0].y_pos == y_pos ){
+            if (list_of_players[0].x_pos == x_pos+1  && list_of_players[0].y_pos == y_pos ){
                 list_of_players[0].dead=true;
                 Isometric2DMovement.gameOver = true;
                 SyncedVar.updateWinLoss(true, false);
