@@ -49,9 +49,11 @@ public class GhostBehaviour : MonoBehaviour
 
     void Update()
     {  
+       
         bool isTimePaused = GameObject.Find("player_characters").GetComponent<Isometric2DMovement>().isTimePaused;
         if (isTimePaused)
         {   
+
             if (remTurns != 0){
                 if (Input.GetKeyDown("w")) 
                 {
@@ -88,7 +90,7 @@ public class GhostBehaviour : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Escape)){
                 updateRemainTurns(6);
                 Isometric2DMovement parent = father_ghost.GetComponent<Isometric2DMovement>();
-                player_inputs.Clear();
+                parent.player_inputs.Clear();
                 x_pos = parent.x_pos;
                 y_pos = parent.y_pos;
                 transform.position = parent.transform.position;
@@ -101,6 +103,15 @@ public class GhostBehaviour : MonoBehaviour
 
             }
         }
+        /*
+        else{
+            Isometric2DMovement father_pos=father_ghost.GetComponent<Isometric2DMovement>();
+            x_pos = father_pos.x_pos;
+            y_pos = father_pos.y_pos;
+            transform.position = father_ghost.transform.position;
+        }
+        */
+       
     }
 
     void move(int dir)
@@ -177,6 +188,7 @@ public class GhostBehaviour : MonoBehaviour
             fireBehaviour.x_pos = x_pos +1;
             fireBehaviour.y_pos = y_pos;
         }
+        target.position = new Vector3( (float)(y_pos * 0.5 + x_pos * 0.5), (float)(y_pos * 0.25 - x_pos *0.25),0f);
         updateRemainTurns(remTurns - 1);
 
         // else if (dir == 11){
@@ -192,11 +204,11 @@ public class GhostBehaviour : MonoBehaviour
         //     Debug.Log("");
         // }
         
-        target.position = new Vector3( (float)(y_pos * 0.5 + x_pos * 0.5), (float)(y_pos * 0.25 - x_pos *0.25),0f);
+       
 
     }
 
-    void updateRemainTurns(int left) 
+    public void updateRemainTurns(int left) 
     {
         this.remTurns = left;
         turnsDisplay.text = "Moves: " + left.ToString();

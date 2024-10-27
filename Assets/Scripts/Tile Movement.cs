@@ -45,6 +45,14 @@ public class Isometric2DMovement : MonoBehaviour
 
     void Update()
     {  
+        if (Input.GetKeyDown(KeyCode.Return)){
+            isTimePaused=!isTimePaused;
+            ghost.GetComponent<GhostBehaviour>().updateRemainTurns(6);
+           
+            
+           
+            
+        }
         if (!isTimePaused)
         {
             vcam.Follow = GameObject.Find("player_characters").transform;
