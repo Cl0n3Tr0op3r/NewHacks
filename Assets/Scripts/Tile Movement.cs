@@ -75,7 +75,7 @@ public class Isometric2DMovement : MonoBehaviour
         }
         else
         {
-            Debug.Log(player_inputs.Count);
+            
             ghost.SetActive(true);
             vcam.Follow = GameObject.Find("player_characters_ghost").transform;
             
@@ -165,7 +165,7 @@ public class Isometric2DMovement : MonoBehaviour
             }
         }
         else if (dir == 12){
-            
+
             foreach (Isometric2DMovement player in list_of_players){
                 if (player.x_pos == x_pos -1 && player.y_pos == y_pos){
                     player.dead=true;

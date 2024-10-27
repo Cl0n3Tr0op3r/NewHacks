@@ -56,19 +56,23 @@ public class GhostBehaviour : MonoBehaviour
                 if (Input.GetKeyDown("w")) 
                 {
                     move(1);
+                    remTurns--;
                 }
                 else if (Input.GetKeyDown("a")) 
                 {
                     move(2);
+                    remTurns--;
                 
                 }
                 else if (Input.GetKeyDown("s")) 
                 {
                     move(3);
+                    remTurns--;
                 }
                 else if (Input.GetKeyDown("d")) 
                 {
                     move(4);
+                    remTurns--;
                 
                 }
                 else if (Input.GetKeyDown("up")){
