@@ -228,7 +228,7 @@ public class Isometric2DMovement : MonoBehaviour
                
             }
             else if (list_of_players[1].x_pos == x_pos+1  && list_of_players[1].y_pos == y_pos ){
-                list_of_players[0].dead=true;
+                list_of_players[1].dead=true;
                 Isometric2DMovement.gameOver = true;
                 SyncedVar.updateWinLoss(false, true);
                     // death or attack animation
@@ -257,7 +257,7 @@ public class Isometric2DMovement : MonoBehaviour
                
             }
             else if (list_of_players[1].x_pos == x_pos+1  && list_of_players[1].y_pos == y_pos ){
-                list_of_players[0].dead=true;
+                list_of_players[1].dead=true;
                 Isometric2DMovement.gameOver = true;
                 gameOver=true;
                 
@@ -283,7 +283,7 @@ public class Isometric2DMovement : MonoBehaviour
                
             }
             else if (list_of_players[1].x_pos == x_pos+1  && list_of_players[1].y_pos == y_pos ){
-                list_of_players[0].dead=true;
+                list_of_players[1].dead=true;
                 Isometric2DMovement.gameOver = true;
                 gameOver=true;
                 
@@ -310,7 +310,7 @@ public class Isometric2DMovement : MonoBehaviour
                
             }
             else if (list_of_players[1].x_pos == x_pos+1  && list_of_players[1].y_pos == y_pos ){
-                list_of_players[0].dead=true;
+                list_of_players[1].dead=true;
                 Isometric2DMovement.gameOver = true;
                 SyncedVar.updateWinLoss(false, true);
                     // death or attack animation
