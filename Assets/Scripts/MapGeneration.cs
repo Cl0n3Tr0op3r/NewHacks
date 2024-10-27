@@ -23,7 +23,7 @@ public class TilemapMapGenerator : MonoBehaviour
             for (int y = start_y; y < end_y; y++)
             {
               
-                tilemap.SetTile(new Vector3Int(x, y,0), tile);
+                tilemap.SetTile(new Vector3Int(y,x, 0), tile);
             }
         }
     }

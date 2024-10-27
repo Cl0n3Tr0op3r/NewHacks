@@ -54,14 +54,14 @@ public class GhostBehaviour : MonoBehaviour
     void Update()
     {
         transform.position = new Vector3( (float)(y_pos * 0.5 + x_pos * 0.5), (float)(y_pos * 0.25 - x_pos *0.25),0f);
-        
+
         if (view == null){
             Debug.Log("trying");
             view = GetComponent<PhotonView>();
         }
         else if (view.IsMine)
         {
-            bool isTimePaused = father_ghost.GetComponent<Isometric2DMovement>().isTimePaused;
+            bool isTimePaused = PauseHandler.isTimePaused;
             if (isTimePaused)
             {
 

@@ -17,7 +17,6 @@ public class Isometric2DMovement : MonoBehaviour
 
     PhotonView view;
 
-    [SerializeField] public bool isTimePaused = false;
     public Queue<int> player_inputs = new Queue<int>();
     [SerializeField] public GameObject ghost;
     [SerializeField] public GameObject fire_prefab;
@@ -25,7 +24,7 @@ public class Isometric2DMovement : MonoBehaviour
     public int frameDelay = 1;
 
 
-    public static LinkedList<Isometric2DMovement> list_of_players = new LinkedList<Isometric2DMovement>();
+    public static Isometric2DMovement[] list_of_players = new Isometric2DMovement[2];
 
 
     void Start()
@@ -36,7 +35,7 @@ public class Isometric2DMovement : MonoBehaviour
         //
 
 
-        isTimePaused = true;
+        PauseHandler.isTimePaused = true;
 
 
         //
@@ -44,8 +43,15 @@ public class Isometric2DMovement : MonoBehaviour
         transform.position=new Vector3(0f,0f,0f);
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         map = GameObject.Find("Grid").GetComponent<TilemapMapGenerator>();
-        list_of_players.AddLast(this);
+       
         view = GetComponent<PhotonView>();
+
+        if (list_of_players[0]==null){
+            list_of_players[0]=this;
+        }
+        else{
+            list_of_players[1]=this;
+        }
       
         
 
@@ -62,7 +68,7 @@ public class Isometric2DMovement : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Return))
             {
-                isTimePaused=!isTimePaused;
+                PauseHandler.isTimePaused=!PauseHandler.isTimePaused;
                 ghost.gameObject.SetActive(false);
                 ghost.GetComponent<GhostBehaviour>().updateRemainTurns(6);
                 foreach (var fire in FireGhost.all_fires){
@@ -75,7 +81,7 @@ public class Isometric2DMovement : MonoBehaviour
                 FireGhost.counter=0;
                 
             }
-            if (!isTimePaused)
+            if (!PauseHandler.isTimePaused)
             {
                 vcam.Follow = gameObject.transform;
                 ghost.GetComponent<GhostBehaviour>().x_pos = x_pos;
@@ -186,8 +192,7 @@ public class Isometric2DMovement : MonoBehaviour
                 x_pos+=1;
             }
             
-            spriteRenderer.sprite = spriteArray[0];
-            
+            spriteRenderer.sprite = spriteArray[0];   
         }
 
         else if (dir == 11){
