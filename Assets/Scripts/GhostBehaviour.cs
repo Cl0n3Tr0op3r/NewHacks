@@ -16,7 +16,7 @@ public class GhostBehaviour : MonoBehaviour
     public bool yourTurn;
     public (int, int) startPos;
     public int remTurns;
-
+    [SerializeField] public GameObject father_ghost;
     public Queue<int> player_inputs = new Queue<int>();
 
 
@@ -45,30 +45,40 @@ public class GhostBehaviour : MonoBehaviour
     {  
         bool isTimePaused = GameObject.Find("player_characters").GetComponent<Isometric2DMovement>().isTimePaused;
         if (isTimePaused)
-        {
-            Debug.Log(player_inputs.Count);
-    
+        {   
+            if (remTurns != 0){
+                if (Input.GetKeyDown("w")) 
+                {
+                    move(1);
+                    remTurns--;
+                }
+                else if (Input.GetKeyDown("a")) 
+                {
+                    move(2);
+                    remTurns--;
+                
+                }
+                else if (Input.GetKeyDown("s")) 
+                {
+                    move(3);
+                    remTurns--;
+                }
+                else if (Input.GetKeyDown("d")) 
+                {
+                    move(4);
+                    remTurns--;
+                
+                }
+            }
             
+            if (Input.GetKeyDown(KeyCode.Escape)){
+                remTurns=6;
+                Isometric2DMovement parent = father_ghost.GetComponent<Isometric2DMovement>();
+                player_inputs.Clear();
+                x_pos = parent.x_pos;
+                y_pos = parent.y_pos;
+                transform.position = parent.transform.position;
 
-            if (Input.GetKeyDown("w")) 
-            {
-                move(1);
-                
-            }
-            else if (Input.GetKeyDown("a")) 
-            {
-                move(2);
-                
-            }
-            else if (Input.GetKeyDown("s")) 
-            {
-                move(3);
-;
-            }
-            else if (Input.GetKeyDown("d")) 
-            {
-                move(4);
-                
             }
         }
     }
