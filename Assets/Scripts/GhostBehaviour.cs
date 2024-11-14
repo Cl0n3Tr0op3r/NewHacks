@@ -3,8 +3,6 @@ using System;
 using System.Collections.Generic;
 using Cinemachine;
 using TMPro;
-using Photon.Pun;
-
 
 public class GhostBehaviour : MonoBehaviour
 {
@@ -24,16 +22,17 @@ public class GhostBehaviour : MonoBehaviour
     [SerializeField] public GameObject fire_ghost;
 
     [SerializeField] public TMP_Text turnsDisplay;
-    PhotonView view;
+    public bool isPlayer;
+
+
 
     public static LinkedList<GhostBehaviour> list_of_players = new LinkedList<GhostBehaviour>();
 
 
     void Start()
     {
+        isPlayer = father_ghost.GetComponent<Isometric2DMovement>().isPlayer;
         
-        
-        //
 
         x_pos = father_ghost.GetComponent<Isometric2DMovement>().x_pos;
         y_pos = father_ghost.GetComponent<Isometric2DMovement>().y_pos;
@@ -46,7 +45,7 @@ public class GhostBehaviour : MonoBehaviour
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         map = GameObject.Find("Grid").GetComponent<TilemapMapGenerator>();
         list_of_players.AddLast(this);
-        view = GetComponent <PhotonView>();
+
 
 
     }
@@ -55,14 +54,9 @@ public class GhostBehaviour : MonoBehaviour
     {
         transform.position = new Vector3( (float)(y_pos * 0.5 + x_pos * 0.5), (float)(y_pos * 0.25 - x_pos *0.25),0f);
 
-        if (view == null){
-            Debug.Log("trying");
-            view = GetComponent<PhotonView>();
-        }
-        else if (view.IsMine)
-        {
+   
             bool isTimePaused = PauseHandler.isTimePaused;
-            if (isTimePaused)
+            if (isTimePaused & isPlayer)
             {
 
                 if (remTurns > 0)
@@ -114,6 +108,7 @@ public class GhostBehaviour : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
                     updateRemainTurns(6);
+                    spriteRenderer.sprite = spriteArray[father_ghost.GetComponent<Isometric2DMovement>().orientation];
                     Isometric2DMovement parent = father_ghost.GetComponent<Isometric2DMovement>();
                     parent.player_inputs.Clear();
                     x_pos = parent.x_pos;
@@ -139,7 +134,7 @@ public class GhostBehaviour : MonoBehaviour
                 transform.position = father_ghost.transform.position;
             }
             */
-        }
+        
     }
 
     void move(int dir)
@@ -158,24 +153,32 @@ public class GhostBehaviour : MonoBehaviour
         if (dir == 1){
             if((map.end_y)>=y_pos){
                 y_pos+=1;
+            } else{
+                remTurns+=1;
             }
             spriteRenderer.sprite = spriteArray[1];
         }
         else if (dir == 3){
             if(map.start_y+2<y_pos){
                 y_pos-=1;
+            }else{
+                remTurns+=1;
             }
              spriteRenderer.sprite = spriteArray[3];
         }
         else if (dir == 2){
             if(map.start_x<=x_pos){
                 x_pos-=1;
+            }else{
+                remTurns+=1;
             }
              spriteRenderer.sprite = spriteArray[2];
         }
         else if (dir == 4){
             if((-2+map.end_x)>x_pos){
                 x_pos+=1;
+            }else{
+                remTurns+=1;
             }
             
             spriteRenderer.sprite = spriteArray[0];   

@@ -2,7 +2,6 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using Cinemachine;
-using Photon.Pun;
 using UnityEngine.SceneManagement;
 
 public class Isometric2DMovement : MonoBehaviour
@@ -16,38 +15,25 @@ public class Isometric2DMovement : MonoBehaviour
     TilemapMapGenerator map;
     public bool dead;
     public static bool gameOver;
+    public int orientation;
 
-    PhotonView view;
 
     public Queue<int> player_inputs = new Queue<int>();
     [SerializeField] public GameObject ghost;
     [SerializeField] public GameObject firePrefab;
     public Queue<GameObject> real_fires = new Queue<GameObject>();
-    public int frameDelay = 1;
-
+    [SerializeField] public bool isPlayer;
 
     public static Isometric2DMovement[] list_of_players = new Isometric2DMovement[2];
 
 
     void Start()
     {
-
-        syncedVar=GameObject.Find("SyncedVar").GetComponent<SyncedVar>();
-        Debug.developerConsoleVisible=true;
-        
-        //
-
-
         PauseHandler.isTimePaused = true;
-
-
-        
-
         transform.position=new Vector3(0f,0f,0f);
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         map = GameObject.Find("Grid").GetComponent<TilemapMapGenerator>();
        
-        view = GetComponent<PhotonView>();
 
         if (list_of_players[0]==null){
             list_of_players[0]=this;
@@ -68,10 +54,10 @@ public class Isometric2DMovement : MonoBehaviour
         }
 
 
-        if (view.IsMine)
-        {
-            transform.position = new Vector3( (float)(y_pos * 0.5 + x_pos * 0.5), (float)(y_pos * 0.25 - x_pos *0.25),0f );
-
+    
+        transform.position = new Vector3( (float)(y_pos * 0.5 + x_pos * 0.5), (float)(y_pos * 0.25 - x_pos *0.25),0f );
+        if(isPlayer){
+            
             if (Input.GetKeyDown(KeyCode.Return))
             {
                 PauseHandler.isTimePaused=!PauseHandler.isTimePaused;
@@ -89,13 +75,14 @@ public class Isometric2DMovement : MonoBehaviour
             }
             if (!PauseHandler.isTimePaused)
             {
+                
                 ghost.GetComponent<GhostBehaviour>().x_pos = x_pos;
                 ghost.GetComponent<GhostBehaviour>().y_pos = y_pos;
                 ghost.transform.position = this.transform.position;
 
                 if (player_inputs.Count != 0) {
                     
-                    if(player_inputs.Count != 0 && Time.frameCount % 30 == 0){
+                    if(player_inputs.Count != 0 && Time.frameCount % 200 == 0){
                         
                         move(player_inputs.Dequeue());
                         
@@ -108,6 +95,9 @@ public class Isometric2DMovement : MonoBehaviour
             }
             else
             {
+                int temp_x_pos = x_pos;
+                int temp_y_pos = y_pos;
+              
                 if(real_fires.Count!=0 && Time.frameCount % 30 == 0){
                     Destroy(real_fires.Dequeue().gameObject, 0f);
                 }
@@ -119,28 +109,41 @@ public class Isometric2DMovement : MonoBehaviour
                 
 
                 ghost.SetActive(true);
-              
+                
                 
                 SpriteRenderer pauseMoveIndicatorSprite = ghost.GetComponent<SpriteRenderer>();
 
                 if (Input.GetKeyDown("w")) 
                 {
-                    player_inputs.Enqueue(1);
+                    if((map.end_y)>=temp_y_pos){
+                        temp_y_pos+=1;
+                        player_inputs.Enqueue(1);
+                    }
+            
+                    
 
                 }
                 else if (Input.GetKeyDown("a")) 
                 {
-                    player_inputs.Enqueue(2);
+                    if(map.start_y+2<temp_y_pos){
+                        temp_y_pos-=1;
+                        player_inputs.Enqueue(2);
+                    }
                 }
                 else if (Input.GetKeyDown("s")) 
                 {
+                    if(map.start_x<=temp_x_pos){
+                         temp_x_pos-=1;
+                        player_inputs.Enqueue(3);
+                    }
                     
-                    player_inputs.Enqueue(3);
                 }
                 else if (Input.GetKeyDown("d")) 
                 {
-                    
-                    player_inputs.Enqueue(4);
+                    if((-2+map.end_x)>temp_x_pos){
+                         temp_x_pos+=1;
+                        player_inputs.Enqueue(4);
+                    }
                 }
                 else if (Input.GetKeyDown("up")){
                     
@@ -158,6 +161,91 @@ public class Isometric2DMovement : MonoBehaviour
                 }
             }
         }
+        else{
+
+            
+            if (!PauseHandler.isTimePaused)
+            {
+                
+                ghost.GetComponent<GhostBehaviour>().x_pos = x_pos;
+                ghost.GetComponent<GhostBehaviour>().y_pos = y_pos;
+                ghost.transform.position = this.transform.position;
+
+                if (player_inputs.Count != 0) {
+                    
+                    if(player_inputs.Count != 0 && Time.frameCount % 200 == 0){
+                        
+                        move(player_inputs.Dequeue());
+                        
+                    }
+                }
+                if(real_fires.Count != 0){
+                    Destroy(real_fires.Dequeue().gameObject, 0.8f);
+                }
+
+            }
+            else
+            {
+              
+                if(real_fires.Count!=0 && Time.frameCount % 30 == 0){
+                    Destroy(real_fires.Dequeue().gameObject, 0f);
+                }
+                
+                if (ghost.GetComponent<GhostBehaviour>().remTurns <= 0)
+                {
+                    return;
+                }
+                
+
+                ghost.SetActive(true);
+                
+                
+                SpriteRenderer pauseMoveIndicatorSprite = ghost.GetComponent<SpriteRenderer>();
+
+                if(!isPlayer){
+                    System.Random rnd = new System.Random();
+                    int temp_x_pos = x_pos;
+                    int temp_y_pos = y_pos;
+                    int[] possible_moves = {1,2,3,4,11,12,13,14};
+                    while(player_inputs.Count!=6){
+                        int next_move = rnd.Next(0,7);
+                        if (next_move == 1){
+                            if((map.end_y)>=temp_y_pos){
+                                temp_y_pos+=1;
+                                player_inputs.Enqueue(possible_moves[next_move]);
+                            } 
+                        }
+                        else if (next_move == 3){
+                            if(map.start_y+2<temp_y_pos){
+                                temp_y_pos-=1;
+                                player_inputs.Enqueue(possible_moves[next_move]);
+                            }
+                        }
+                        else if (next_move == 2){
+                            if(map.start_x<=temp_x_pos){
+                                temp_x_pos-=1;
+                                player_inputs.Enqueue(possible_moves[next_move]);
+                            }
+                            
+                        }
+                        else if (next_move == 4){
+                            if((-2+map.end_x)>temp_x_pos){
+                                temp_x_pos+=1;
+                                player_inputs.Enqueue(possible_moves[next_move]);
+                            }
+                        }
+                        else{
+                            player_inputs.Enqueue(possible_moves[next_move]);
+                        }
+                        
+                    }
+                    Debug.Log(player_inputs.Count);
+                    
+                }
+            }
+              
+        }
+    
     }
 
     void move(int dir)
@@ -185,31 +273,35 @@ public class Isometric2DMovement : MonoBehaviour
             if((map.end_y)>=y_pos){
                 y_pos+=1;
             }
+            orientation=1;
             spriteRenderer.sprite = spriteArray[1];
         }
         else if (dir == 3){
             if(map.start_y+2<y_pos){
                 y_pos-=1;
             }
-             spriteRenderer.sprite = spriteArray[3];
+            orientation=3;
+            spriteRenderer.sprite = spriteArray[3];
         }
         else if (dir == 2){
             if(map.start_x<=x_pos){
                 x_pos-=1;
             }
-             spriteRenderer.sprite = spriteArray[2];
+            orientation=2;
+            spriteRenderer.sprite = spriteArray[2];
         }
         else if (dir == 4){
             if((-2+map.end_x)>x_pos){
                 x_pos+=1;
             }
+            orientation=4;
             
             spriteRenderer.sprite = spriteArray[0];   
         }
 
         else if (dir == 11){
 
-            GameObject fire = PhotonNetwork.Instantiate(firePrefab.name, new Vector2(0f, 0f), Quaternion.identity) as GameObject;
+            GameObject fire = Instantiate(firePrefab, new Vector2(0f, 0f), Quaternion.identity);
 
             Fire fireBehaviour = fire.GetComponent<Fire>(); 
             real_fires.Enqueue(fire);
@@ -218,27 +310,20 @@ public class Isometric2DMovement : MonoBehaviour
             
             fire.SetActive(true);
             Isometric2DMovement[] list_of_players = Isometric2DMovement.list_of_players;
-
-            if (list_of_players[0].x_pos == x_pos+1  && list_of_players[0].y_pos == y_pos+1 ){
-                list_of_players[0].dead=true;
+            foreach (Isometric2DMovement player in list_of_players){
+                if (player.x_pos == x_pos  && player.y_pos == y_pos+1 ){
+                player.dead=true;
                 Isometric2DMovement.gameOver = true;
-                SyncedVar.updateWinLoss(true, false);
-                    // death or attack animation
+                Debug.Log("dead");
                 
-               
-            }
-            else if (list_of_players[1].x_pos == x_pos  && list_of_players[1].y_pos == y_pos +1){
-                list_of_players[1].dead=true;
-                Isometric2DMovement.gameOver = true;
-                SyncedVar.updateWinLoss(false, true);
-                    // death or attack animation
-                
-               
-            }
+                }
+            }            
+            
+          
         }
         else if (dir == 12){
 
-            GameObject fire = PhotonNetwork.Instantiate(firePrefab.name, new Vector2(0f, 0f), Quaternion.identity) as GameObject;
+            GameObject fire = Instantiate(firePrefab, new Vector2(0f, 0f), Quaternion.identity);
 
             Fire fireBehaviour = fire.gameObject.GetComponent<Fire>();
             real_fires.Enqueue(fire);
@@ -248,27 +333,18 @@ public class Isometric2DMovement : MonoBehaviour
             
             fire.SetActive(true);
             Isometric2DMovement[] list_of_players = Isometric2DMovement.list_of_players;
-            if (list_of_players[0].x_pos == x_pos  && list_of_players[0].y_pos == y_pos-1 ){
-                list_of_players[0].dead=true;
+            foreach (Isometric2DMovement player in list_of_players){
+                if (player.x_pos == x_pos-1  && player.y_pos == y_pos ){
+                player.dead=true;
                 Isometric2DMovement.gameOver = true;
-                gameOver=true;
-                SceneManager.LoadScene("Winner");
-                    // death or attack animation
+                Debug.Log("dead");
                 
-               
-            }
-            else if (list_of_players[1].x_pos == x_pos && list_of_players[1].y_pos == y_pos -1){
-                list_of_players[1].dead=true;
-                Isometric2DMovement.gameOver = true;
-                gameOver=true;
-                SceneManager.LoadScene("Winner");
-                
-               
-            }
+                }
+            }    
         }
         else if (dir == 13){
 
-            GameObject fire = PhotonNetwork.Instantiate(firePrefab.name, new Vector2(0f, 0f), Quaternion.identity) as GameObject;
+            GameObject fire = Instantiate(firePrefab, new Vector2(0f, 0f), Quaternion.identity);
 
             Fire fireBehaviour=fire.GetComponent<Fire>();
             real_fires.Enqueue(fire);
@@ -276,28 +352,19 @@ public class Isometric2DMovement : MonoBehaviour
             fireBehaviour.y_pos = y_pos-1;
             Isometric2DMovement[] list_of_players = Isometric2DMovement.list_of_players;
             fire.SetActive(true);
-            if (list_of_players[0].x_pos == x_pos-1  && list_of_players[0].y_pos == y_pos ){
-                list_of_players[0].dead=true;
+            foreach (Isometric2DMovement player in list_of_players){
+                if (player.x_pos == x_pos+1  && player.y_pos == y_pos ){
+                player.dead=true;
                 Isometric2DMovement.gameOver = true;
-                gameOver=true;
-                SceneManager.LoadScene("Winner");
-                    // death or attack animation
+                Debug.Log("dead");
                 
-               
-            }
-            else if (list_of_players[1].x_pos == x_pos-1  && list_of_players[1].y_pos == y_pos ){
-                list_of_players[1].dead=true;
-                Isometric2DMovement.gameOver = true;
-                gameOver=true;
-                SceneManager.LoadScene("Winner");
-                
-               
-            }
+                }
+            }    
         }
         else if (dir == 14){
 
-            GameObject fire = PhotonNetwork.Instantiate(firePrefab.name, new Vector2(0f, 0f), Quaternion.identity) as GameObject;
-   
+            GameObject fire = Instantiate(firePrefab, new Vector2(0f, 0f), Quaternion.identity);
+
             Fire fireBehaviour=fire.GetComponent<Fire>();
             real_fires.Enqueue(fire);
             fireBehaviour.x_pos = x_pos+1;
@@ -305,26 +372,18 @@ public class Isometric2DMovement : MonoBehaviour
             Isometric2DMovement[] list_of_players = Isometric2DMovement.list_of_players;
             fire.SetActive(true);
             
-           if (list_of_players[0].x_pos == x_pos+1  && list_of_players[0].y_pos == y_pos ){
-                list_of_players[0].dead=true;
+            foreach (Isometric2DMovement player in list_of_players){
+                if (player.x_pos == x_pos  && player.y_pos == y_pos-1 ){
+                player.dead=true;
                 Isometric2DMovement.gameOver = true;
-                gameOver=true;
-                SceneManager.LoadScene("Winner");
-                    // death or attack animation
+                Debug.Log("dead");
                 
-               
-            }
-            else if (list_of_players[1].x_pos == x_pos+1  && list_of_players[1].y_pos == y_pos ){
-                list_of_players[1].dead=true;
-                Isometric2DMovement.gameOver = true;
-                gameOver=true;
-                SceneManager.LoadScene("Winner");
-                
-               
-            }
+                }
+            }    
         }
         
         target.position = new Vector3( (float)(y_pos * 0.5 + x_pos * 0.5), (float)(y_pos * 0.25 - x_pos *0.25),0f );
 
-    }
+        }
+    
 }
